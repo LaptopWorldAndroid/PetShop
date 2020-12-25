@@ -15,4 +15,5 @@
     <color name="text_color">#000000</color>
     <color name="primary_color">#FF7979</color>
     <color name="background_color">#E5E5E5</color>
+    <color name="divider">#ECECEC</color>
 </resources>
