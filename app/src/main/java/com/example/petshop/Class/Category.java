@@ -1,9 +1,13 @@
 package com.example.petshop.Class;
 
+import java.util.Map;
+
 public class Category {
     private String idCategory;
     private String nameCategory;
     private String imageCategory;
+
+    public  Category(){}
 
     public Category(String idCategory, String nameCategory, String imageCategory) {
         this.idCategory = idCategory;
