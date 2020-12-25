@@ -59,7 +59,9 @@
         android:layout_height="wrap_content"
         android:background="@color/primary_color"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:tabIndicatorHeight="3dp"
+        app:tabSelectedTextColor="@color/white"
+        app:tabTextColor="@color/text_color"
+        app:tabIndicatorHeight="0dp"
         app:tabMode="fixed"
         app:tabPaddingBottom="8dp"
         app:tabPaddingTop="15dp" />

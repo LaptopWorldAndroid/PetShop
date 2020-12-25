@@ -23,21 +23,27 @@ public class HoneActivity extends AppCompatActivity {
         viewPager2.setAdapter(new NavigationAdapter(this));
 
         TabLayout tabLayout = findViewById(R.id.tabLayout);
+
+
         TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(
                 tabLayout, viewPager2, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
-                switch (position){
+                switch (position) {
                     case 0: {
                         tab.setText("Trang chủ");
                         tab.setIcon(R.drawable.ic_baseline_home_24);
-                        BadgeDrawable badgeDrawable = tab.getOrCreateBadge();
+
+//                        BadgeDrawable badgeDrawable = tab.getOrCreateBadge();
+//                        badgeDrawable.setBackgroundColor(ContextCompat.getColor(getApplicationContext(),R.color.white));
+//                        badgeDrawable.setVisible(true);
 
                         break;
                     }
                     case 1: {
                         tab.setText("Danh mục");
                         tab.setIcon(R.drawable.ic_baseline_category_24);
+
                         break;
                     }
                     case 2: {
