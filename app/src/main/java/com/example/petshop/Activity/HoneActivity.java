@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import com.example.petshop.Adapter.NavigationAdapter;
 import com.example.petshop.R;
+import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -30,6 +31,8 @@ public class HoneActivity extends AppCompatActivity {
                     case 0: {
                         tab.setText("Trang chủ");
                         tab.setIcon(R.drawable.ic_baseline_home_24);
+                        BadgeDrawable badgeDrawable = tab.getOrCreateBadge();
+                        
                         break;
                     }
                     case 1: {
