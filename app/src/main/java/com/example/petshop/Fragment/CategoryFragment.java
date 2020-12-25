@@ -32,18 +32,18 @@ public class CategoryFragment extends Fragment {
         return viewRoot;
     }
 
-    private void categoryListdATA() {
-        listCategory.add(new Category("1","Thor","R.drawable.image_thor"));
-        listCategory.add(new Category("2","IronMan","R.drawable.image_ironman"));
-        listCategory.add(new Category("3",,"Hulk","R.drawable.image_hulk"));
-        listCategory.add(new Category("4","SpiderMan","R.drawable.image_spiderman"));
-        listCategory.add(new Category("5","Thor","R.drawable.image_thor"));
-        listCategory.add(new Category("6","IronMan","R.drawable.image_ironman"));
-        listCategory.add(new Category("7","Hulk","R.drawable.image_hulk"));
-        listCategory.add(new Category("8","SpiderMan","R.drawable.image_spiderman"));
-        listCategory.add(new Category("9","Thor","R.drawable.image_thor"));
-        listCategory.add(new Category("10","IronMan","R.drawable.image_ironman"));
-    }
+//    private void categoryListdATA() {
+//        listCategory.add(new Category("1","Thor","R.drawable.image_thor"));
+//        listCategory.add(new Category("2","IronMan","R.drawable.image_ironman"));
+//        listCategory.add(new Category("3","Hulk","R.drawable.image_hulk"));
+//        listCategory.add(new Category("4","SpiderMan","R.drawable.image_spiderman"));
+//        listCategory.add(new Category("5","Thor","R.drawable.image_thor"));
+//        listCategory.add(new Category("6","IronMan","R.drawable.image_ironman"));
+//        listCategory.add(new Category("7","Hulk","R.drawable.image_hulk"));
+//        listCategory.add(new Category("8","SpiderMan","R.drawable.image_spiderman"));
+//        listCategory.add(new Category("9","Thor","R.drawable.image_thor"));
+//        listCategory.add(new Category("10","IronMan","R.drawable.image_ironman"));
+//    }
 
     private void Init() {
         rvcCategory = (RecyclerView) viewRoot.findViewById(R.id.rcwCategory);
@@ -51,7 +51,7 @@ public class CategoryFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(RecyclerView.HORIZONTAL);
         listCategory = new ArrayList<>();
-
+//        categoryListdATA();
         adapter = new CategoryAdapter(getContext(), listCategory);
         rvcCategory.setLayoutManager(layoutManager);
         rvcCategory.setAdapter(adapter);

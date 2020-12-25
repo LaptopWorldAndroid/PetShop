@@ -32,7 +32,7 @@ public class HoneActivity extends AppCompatActivity {
                         tab.setText("Trang chủ");
                         tab.setIcon(R.drawable.ic_baseline_home_24);
                         BadgeDrawable badgeDrawable = tab.getOrCreateBadge();
-                        
+
                         break;
                     }
                     case 1: {
