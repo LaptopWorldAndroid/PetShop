@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.petshop.Adapter.CategoryAdapter;
 import com.example.petshop.Class.Category;
@@ -30,7 +31,7 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-public class CategoryFragment extends Fragment {
+public class CategoryFragment extends Fragment implements CategoryAdapter.ItemClickListener{
     private View viewRoot;
     private LinearLayout layoutCategory;
     private RecyclerView rvcCategory;
@@ -71,13 +72,17 @@ public class CategoryFragment extends Fragment {
 
     private void Init() {
         rvcCategory = (RecyclerView) viewRoot.findViewById(R.id.rcwCategory);
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(RecyclerView.VERTICAL);
         getData();
-        adapter = new CategoryAdapter(getContext(), listCategory);
+        adapter = new CategoryAdapter(getContext(), this,listCategory);
         rvcCategory.setLayoutManager(layoutManager);
         rvcCategory.setAdapter(adapter);
 
+    }
+
+    @Override
+    public void onClick(View v, Category category) {
+        Toast.makeText(getContext(), category.getNameCategory(), Toast.LENGTH_SHORT).show();
     }
 }
