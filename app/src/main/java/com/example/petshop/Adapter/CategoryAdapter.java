@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.petshop.Class.Category;
 import com.example.petshop.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -39,10 +40,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Category category = mCategory.get((position));
-        Glide
-                .with(mContext)
-                .load(category.getImageCategory())
-                .into(holder.imgCategory);
+
+        Picasso.get().load(category.getImageCategory()).into(holder.imgCategory);
+
         holder.txtCategory.setText(category.getNameCategory());
     }
 

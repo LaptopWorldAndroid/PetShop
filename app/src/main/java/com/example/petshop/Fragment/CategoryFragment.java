@@ -11,11 +11,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.petshop.Adapter.CategoryAdapter;
+import com.example.petshop.Adapter.ProductInCategoryAdapter;
 import com.example.petshop.Class.Category;
+import com.example.petshop.Class.Product;
 import com.example.petshop.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -31,13 +34,19 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-public class CategoryFragment extends Fragment implements CategoryAdapter.ItemClickListener{
+public class CategoryFragment extends Fragment implements CategoryAdapter.ItemClickListener {
     private View viewRoot;
     private LinearLayout layoutCategory;
     private RecyclerView rvcCategory;
     private ArrayList<Category> listCategory = new ArrayList<>();
     private Category category;
     private CategoryAdapter adapter = null;
+
+    private GridView gvProduct;
+    private ArrayList<Product> listProduct = new ArrayList<>();
+    ;
+    private Product product;
+    private ProductInCategoryAdapter adapterProduct = null;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
@@ -49,7 +58,7 @@ public class CategoryFragment extends Fragment implements CategoryAdapter.ItemCl
         return viewRoot;
     }
 
-    public void getData() {
+    public void getDataCategory() {
         db = FirebaseFirestore.getInstance();
         db.collection("category")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -67,18 +76,49 @@ public class CategoryFragment extends Fragment implements CategoryAdapter.ItemCl
                         Log.d("TAG", "Current cites in CA: ");
                     }
                 });
+    }
 
+    public void getDataProduct() {
+        db = FirebaseFirestore.getInstance();
+        db.collection("product")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value,
+                                        @Nullable FirebaseFirestoreException e) {
+                        if (e != null) {
+                            Log.w("Fail", "Listen failed.", e);
+                            return;
+                        }
+                        for (QueryDocumentSnapshot doc : value) {
+                            listProduct.add(new Product(
+                                    doc.getId(),
+                                    doc.get("name").toString(),
+                                    doc.get("description").toString(),
+                                    doc.get("imgUrl").toString(),
+                                    Float.parseFloat(doc.get("stock").toString()),
+                                    Float.parseFloat(doc.get("unitPrice").toString())
+                            ));
+                            adapterProduct.notifyDataSetChanged();
+                        }
+                        Log.d("TAG", "Current cites in CA: ");
+                    }
+                });
     }
 
     private void Init() {
         rvcCategory = (RecyclerView) viewRoot.findViewById(R.id.rcwCategory);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(RecyclerView.VERTICAL);
-        getData();
-        adapter = new CategoryAdapter(getContext(), this,listCategory);
+        getDataCategory();
+        adapter = new CategoryAdapter(getContext(), this, listCategory);
         rvcCategory.setLayoutManager(layoutManager);
         rvcCategory.setAdapter(adapter);
 
+        gvProduct = (GridView) viewRoot.findViewById(R.id.grvProduct);
+        getDataProduct();
+
+        adapterProduct = new ProductInCategoryAdapter(getContext(), R.layout.item_category_gridview, listProduct);
+        gvProduct.setAdapter(adapterProduct);
     }
 
     @Override
