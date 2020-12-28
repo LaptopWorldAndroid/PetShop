@@ -11,11 +11,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.petshop.Adapter.CategoryAdapter;
+import com.example.petshop.Adapter.ProductInCategoryAdapter;
 import com.example.petshop.Class.Category;
+import com.example.petshop.Class.Product;
 import com.example.petshop.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -38,6 +41,11 @@ public class CategoryFragment extends Fragment implements CategoryAdapter.ItemCl
     private ArrayList<Category> listCategory = new ArrayList<>();
     private Category category;
     private CategoryAdapter adapter = null;
+
+    private GridView gvProduct;
+    private ArrayList<Product> listProduct;
+    private Product product;
+    private ProductInCategoryAdapter adapterProduct = null;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
@@ -49,7 +57,7 @@ public class CategoryFragment extends Fragment implements CategoryAdapter.ItemCl
         return viewRoot;
     }
 
-    public void getData() {
+    public void getDataCategory() {
         db = FirebaseFirestore.getInstance();
         db.collection("category")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -67,18 +75,35 @@ public class CategoryFragment extends Fragment implements CategoryAdapter.ItemCl
                         Log.d("TAG", "Current cites in CA: ");
                     }
                 });
-
     }
 
     private void Init() {
         rvcCategory = (RecyclerView) viewRoot.findViewById(R.id.rcwCategory);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(RecyclerView.VERTICAL);
-        getData();
-        adapter = new CategoryAdapter(getContext(), this,listCategory);
+        getDataCategory();
+        adapter = new CategoryAdapter(getContext(), this, listCategory);
         rvcCategory.setLayoutManager(layoutManager);
         rvcCategory.setAdapter(adapter);
 
+        gvProduct = (GridView) viewRoot.findViewById(R.id.grvProduct);
+
+        listProduct = new ArrayList<>();
+        listProduct.add(new Product("1", "Lập Trình Java", "123", null, 20, 30000));
+        listProduct.add(new Product("2", "Lập Trình Android", "123", null, 20, 30000));
+        listProduct.add(new Product("3", "Lập Trình JavaFX", "123", null, 20, 30000));
+        listProduct.add(new Product("4", "Lập Trình Web", "123", null, 20, 30000));
+        listProduct.add(new Product("5", "Lập Trình Ruby", "123", null, 20, 30000));
+        listProduct.add(new Product("6", "Lập Trình C++", "123", null, 20, 30000));
+        listProduct.add(new Product("7", "Lập Trình PHP", "123", null, 20, 30000));
+        listProduct.add(new Product("8", "Lập Trình WordPress", "123", null, 20, 30000));
+        listProduct.add(new Product("4", "Lập Trình Web", "123", null, 20, 30000));
+        listProduct.add(new Product("5", "Lập Trình Ruby", "123", null, 20, 30000));
+        listProduct.add(new Product("6", "Lập Trình C++", "123", null, 20, 30000));
+        listProduct.add(new Product("7", "Lập Trình PHP", "123", null, 20, 30000));
+        listProduct.add(new Product("8", "Lập Trình WordPress", "123", null, 20, 30000));
+        adapterProduct = new ProductInCategoryAdapter(getContext(), R.layout.item_category_gridview, listProduct);
+        gvProduct.setAdapter(adapterProduct);
     }
 
     @Override

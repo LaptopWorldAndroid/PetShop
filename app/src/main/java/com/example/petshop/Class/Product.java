@@ -1,0 +1,70 @@
+package com.example.petshop.Class;
+
+public class Product {
+    private String idProduct;
+    private String nameProduct;
+    private String description;
+    private String imgUrl;
+    private float stock;
+    private float unitPrice;
+
+    public Product() {
+    }
+
+    public Product(String idProduct, String nameProduct, String description, String imgUrl, float stock, float unitPrice) {
+        this.idProduct = idProduct;
+        this.nameProduct = nameProduct;
+        this.description = description;
+        this.imgUrl = imgUrl;
+        this.stock = stock;
+        this.unitPrice = unitPrice;
+    }
+
+    public String getIdProduct() {
+        return idProduct;
+    }
+
+    public void setIdProduct(String idProduct) {
+        this.idProduct = idProduct;
+    }
+
+    public String getNameProduct() {
+        return nameProduct;
+    }
+
+    public void setNameProduct(String nameProduct) {
+        this.nameProduct = nameProduct;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
+    public float getStock() {
+        return stock;
+    }
+
+    public void setStock(float stock) {
+        this.stock = stock;
+    }
+
+    public float getUnitPrice() {
+        return unitPrice;
+    }
+
+    public void setUnitPrice(float unitPrice) {
+        this.unitPrice = unitPrice;
+    }
+}
