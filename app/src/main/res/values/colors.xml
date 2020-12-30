@@ -13,7 +13,8 @@
     <color name="second_color">#FFEAEA</color>
     <color name="tittle_color">#655858</color>
     <color name="text_color">#000000</color>
+    <color name="title_color">#655858</color>
     <color name="primary_color">#FF7979</color>
-    <color name="background_color">#E5E5E5</color>
+    <color name="background_color">#FFF7F7</color>
     <color name="divider">#ECECEC</color>
 </resources>
