@@ -1,11 +1,13 @@
 package com.example.petshop.Adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,6 +23,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     private Context mContext;
     private ArrayList<Category> mCategory;
     private ItemClickListener itemClickListener;
+    int selectedPosition=-1;
 
     public CategoryAdapter(Context mContext,ItemClickListener itemClickListener,ArrayList<Category> mCategory) {
         this.mContext = mContext;
@@ -62,12 +65,15 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    itemClickListener.onClick(v,mCategory.get(getLayoutPosition()));
+                    if()
+                    v.isClickable()
+                    v.setBackgroundColor(Color.BLUE);
+                    itemClickListener.onClick(v,mCategory.get(getLayoutPosition()),mCategory.get(getLayoutPosition()).getIdCategory());
                 }
             });
         }
     }
     public interface ItemClickListener{
-        void onClick(View v,Category category);
+        void onClick(View v,Category category,String idCategory);
     }
 }
