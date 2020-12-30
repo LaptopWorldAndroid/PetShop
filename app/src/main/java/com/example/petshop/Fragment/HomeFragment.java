@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import javax.annotation.Nullable;
 
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements CategoryAdapter.ItemClickListener {
     private View viewRoot;
     private RecyclerView homeCategoryRcv;
     private ArrayList<Category> listCategory = new ArrayList<>();
@@ -73,10 +73,15 @@ public class HomeFragment extends Fragment {
         layoutManager.setOrientation(RecyclerView.HORIZONTAL);
         getDataCategory();
         Log.d("hehe", String.valueOf(listCategory.size()));
-        adapter = new CategoryAdapter(getContext(), null, listCategory);
+        adapter = new CategoryAdapter(getContext(), this, listCategory);
         homeCategoryRcv.setLayoutManager(layoutManager);
         homeCategoryRcv.setAdapter(adapter);
 
+    }
+
+    @Override
+    public void onClick(View v, Category category, String idCategory) {
+        Toast.makeText(getContext(), category.getNameCategory(), Toast.LENGTH_SHORT).show();
     }
 
 
