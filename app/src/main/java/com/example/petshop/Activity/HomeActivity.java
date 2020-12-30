@@ -2,8 +2,12 @@ package com.example.petshop.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.res.ColorStateList;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.example.petshop.Adapter.NavigationAdapter;
@@ -13,6 +17,8 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 public class HomeActivity extends AppCompatActivity {
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +63,29 @@ public class HomeActivity extends AppCompatActivity {
                         break;
                     }
                 }
+
             }
+
         }
         );
+//        ColorStateList colors;
+//        if (Build.VERSION.SDK_INT >= 23) {
+//            colors = getResources().getColorStateList(R.color.tab_icon, getTheme());
+//        }
+//        else {
+//            colors = getResources().getColorStateList(R.color.tab_icon);
+//        }
+//
+//        for (int i = 0; i < tabLayout.getTabCount(); i++) {
+//            TabLayout.Tab tab = tabLayout.getTabAt(i);
+//            Drawable icon = tab.getIcon();
+//
+//            if (icon != null) {
+//                icon = DrawableCompat.wrap(icon);
+//                DrawableCompat.setTintList(icon, colors);
+//            }
+//        }
         tabLayoutMediator.attach();
+
     }
 }

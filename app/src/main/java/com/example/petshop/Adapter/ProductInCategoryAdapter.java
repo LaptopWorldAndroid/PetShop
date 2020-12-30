@@ -1,9 +1,12 @@
 package com.example.petshop.Adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -77,7 +80,7 @@ public class ProductInCategoryAdapter extends BaseAdapter {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, product.getNameProduct(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, product.getNameProduct()+"Đây là test1", Toast.LENGTH_SHORT).show();
             }
         });
 
