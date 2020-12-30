@@ -11,23 +11,21 @@
         android:theme="@style/Theme.PetShop">
         <activity android:name=".Activity.ShoppingCartActivity">
 
-<<<<<<< HEAD
         </activity>
         <activity android:name=".Activity.HomeActivity">
-=======
-        <activity android:name=".Activity.RegisterActivity">
 
-        </activity>
-        <activity android:name=".Activity.LoginActivity">
-
-        </activity>
-        <activity android:name=".Activity.HoneActivity">
->>>>>>> a18f6b8f721eb2da848b3282de99e60bd6714063
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity android:name=".Activity.RegisterActivity">
+
+        </activity>
+        <activity android:name=".Activity.LoginActivity">
+
         </activity>
         <activity android:name=".Activity.CategoryActivity" />
         <activity android:name=".Activity.MainActivity" />

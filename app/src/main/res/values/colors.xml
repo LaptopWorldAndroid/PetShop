@@ -20,10 +20,9 @@
     <color name="primary_color">#FF7979</color>
     <color name="background_color">#FFF7F7</color>
     <color name="divider">#ECECEC</color>
-<<<<<<< HEAD
+
     <color name="light">#ebebeb</color>
     <color name="lightPink">#f5baba</color>
-=======
->>>>>>> c92766122156f1adf67d3e9004b92b0a1fde5bb6
->>>>>>> a18f6b8f721eb2da848b3282de99e60bd6714063
+
+
 </resources>
