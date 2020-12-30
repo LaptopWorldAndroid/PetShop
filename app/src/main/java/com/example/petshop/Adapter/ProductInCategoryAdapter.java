@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -72,6 +73,13 @@ public class ProductInCategoryAdapter extends BaseAdapter {
         final Product product=listProduct.get(position);
         holder.txtProduct.setText(product.getNameProduct());
         Picasso.get().load(product.getImgUrl()).into(holder.imgProduct);
+
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, product.getNameProduct(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
         return convertView;
     }

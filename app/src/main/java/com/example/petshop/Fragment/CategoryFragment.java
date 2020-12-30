@@ -34,7 +34,7 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-public class CategoryFragment extends Fragment implements CategoryAdapter.ItemClickListener{
+public class CategoryFragment extends Fragment implements CategoryAdapter.ItemClickListener {
     private View viewRoot;
     private LinearLayout layoutCategory;
     private RecyclerView rvcCategory;
@@ -43,7 +43,8 @@ public class CategoryFragment extends Fragment implements CategoryAdapter.ItemCl
     private CategoryAdapter adapter = null;
 
     private GridView gvProduct;
-    private ArrayList<Product> listProduct;
+    private ArrayList<Product> listProduct = new ArrayList<>();
+    ;
     private Product product;
     private ProductInCategoryAdapter adapterProduct = null;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -77,6 +78,33 @@ public class CategoryFragment extends Fragment implements CategoryAdapter.ItemCl
                 });
     }
 
+    public void getDataProduct() {
+        db = FirebaseFirestore.getInstance();
+        db.collection("product")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value,
+                                        @Nullable FirebaseFirestoreException e) {
+                        if (e != null) {
+                            Log.w("Fail", "Listen failed.", e);
+                            return;
+                        }
+                        for (QueryDocumentSnapshot doc : value) {
+                            listProduct.add(new Product(
+                                    doc.getId(),
+                                    doc.get("name").toString(),
+                                    doc.get("description").toString(),
+                                    doc.get("imgUrl").toString(),
+                                    Float.parseFloat(doc.get("stock").toString()),
+                                    Float.parseFloat(doc.get("unitPrice").toString())
+                            ));
+                            adapterProduct.notifyDataSetChanged();
+                        }
+                        Log.d("TAG", "Current cites in CA: ");
+                    }
+                });
+    }
+
     private void Init() {
         rvcCategory = (RecyclerView) viewRoot.findViewById(R.id.rcwCategory);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -87,21 +115,8 @@ public class CategoryFragment extends Fragment implements CategoryAdapter.ItemCl
         rvcCategory.setAdapter(adapter);
 
         gvProduct = (GridView) viewRoot.findViewById(R.id.grvProduct);
+        getDataProduct();
 
-        listProduct = new ArrayList<>();
-        listProduct.add(new Product("1", "Lập Trình Java", "123", null, 20, 30000));
-        listProduct.add(new Product("2", "Lập Trình Android", "123", null, 20, 30000));
-        listProduct.add(new Product("3", "Lập Trình JavaFX", "123", null, 20, 30000));
-        listProduct.add(new Product("4", "Lập Trình Web", "123", null, 20, 30000));
-        listProduct.add(new Product("5", "Lập Trình Ruby", "123", null, 20, 30000));
-        listProduct.add(new Product("6", "Lập Trình C++", "123", null, 20, 30000));
-        listProduct.add(new Product("7", "Lập Trình PHP", "123", null, 20, 30000));
-        listProduct.add(new Product("8", "Lập Trình WordPress", "123", null, 20, 30000));
-        listProduct.add(new Product("4", "Lập Trình Web", "123", null, 20, 30000));
-        listProduct.add(new Product("5", "Lập Trình Ruby", "123", null, 20, 30000));
-        listProduct.add(new Product("6", "Lập Trình C++", "123", null, 20, 30000));
-        listProduct.add(new Product("7", "Lập Trình PHP", "123", null, 20, 30000));
-        listProduct.add(new Product("8", "Lập Trình WordPress", "123", null, 20, 30000));
         adapterProduct = new ProductInCategoryAdapter(getContext(), R.layout.item_category_gridview, listProduct);
         gvProduct.setAdapter(adapterProduct);
     }

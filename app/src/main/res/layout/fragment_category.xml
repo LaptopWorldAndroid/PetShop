@@ -9,9 +9,8 @@
     <LinearLayout
         android:id="@+id/layoutCategory"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:background="@color/whitesmoke"
-        android:orientation="vertical">
+        android:background="@color/second_color"
+        android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcwCategory"
@@ -20,11 +19,11 @@
     </LinearLayout>
 
     <GridView
-        android:layout_toRightOf="@id/layoutCategory"
         android:id="@+id/grvProduct"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:numColumns="3"/>
+        android:layout_toRightOf="@id/layoutCategory"
+        android:numColumns="3" />
     />
 
 </RelativeLayout>
