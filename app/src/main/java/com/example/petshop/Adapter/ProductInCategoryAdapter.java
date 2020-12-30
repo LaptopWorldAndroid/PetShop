@@ -81,7 +81,6 @@ public class ProductInCategoryAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 Toast.makeText(context, product.getNameProduct()+"Đây là test1", Toast.LENGTH_SHORT).show();
-                v.setBackgroundColor(Color.YELLOW);
             }
         });
 

@@ -65,9 +65,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if()
-                    v.isClickable()
-                    v.setBackgroundColor(Color.BLUE);
                     itemClickListener.onClick(v,mCategory.get(getLayoutPosition()),mCategory.get(getLayoutPosition()).getIdCategory());
                 }
             });
