@@ -4,46 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CategoryActivity">
+    tools:context=".Activity.CategoryActivity">
 
     <LinearLayout
         android:id="@+id/layoutCategory"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:background="@color/whitesmoke"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:layout_marginTop="20px"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcwCategory"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@drawable/recommendation" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Gợi ý cho bạn"/>
-
-        <LinearLayout
-            android:layout_marginTop="15dp"
-            android:orientation="vertical"
-            android:paddingHorizontal="5dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/ic_bone"
-                android:layout_gravity="center"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:textColor="@color/black"
-                android:text="Shop Xương"/>
-        </LinearLayout>
+            android:layout_height="match_parent" />
     </LinearLayout>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

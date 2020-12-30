@@ -1,10 +1,12 @@
-package com.example.petshop;
+package com.example.petshop.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
+
+import com.example.petshop.R;
 
 public class CategoryActivity extends AppCompatActivity {
 
