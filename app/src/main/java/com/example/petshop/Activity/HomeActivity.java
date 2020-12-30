@@ -16,7 +16,7 @@ import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
-public class HoneActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
 
 
 
