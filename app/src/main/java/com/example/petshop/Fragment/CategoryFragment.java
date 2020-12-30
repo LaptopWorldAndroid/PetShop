@@ -78,7 +78,7 @@ public class CategoryFragment extends Fragment implements CategoryAdapter.ItemCl
                 });
     }
 
-    public void getDataProduct() {
+    public void getDataProduct(String id) {
         db = FirebaseFirestore.getInstance();
         db.collection("product")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -89,18 +89,21 @@ public class CategoryFragment extends Fragment implements CategoryAdapter.ItemCl
                             Log.w("Fail", "Listen failed.", e);
                             return;
                         }
+                        listProduct.clear();
                         for (QueryDocumentSnapshot doc : value) {
-                            listProduct.add(new Product(
-                                    doc.getId(),
-                                    doc.get("name").toString(),
-                                    doc.get("description").toString(),
-                                    doc.get("imgUrl").toString(),
-                                    Float.parseFloat(doc.get("stock").toString()),
-                                    Float.parseFloat(doc.get("unitPrice").toString())
-                            ));
-                            adapterProduct.notifyDataSetChanged();
+                            if (doc.get("categoryId").toString().equals(id)) {
+                                listProduct.add(new Product(
+                                        doc.getId(),
+                                        doc.get("name").toString(),
+                                        doc.get("description").toString(),
+                                        doc.get("imgUrl").toString(),
+                                        Float.parseFloat(doc.get("stock").toString()),
+                                        Float.parseFloat(doc.get("unitPrice").toString())
+                                ));
+                                adapterProduct.notifyDataSetChanged();
+                            }
+
                         }
-                        Log.d("TAG", "Current cites in CA: ");
                     }
                 });
     }
@@ -115,14 +118,13 @@ public class CategoryFragment extends Fragment implements CategoryAdapter.ItemCl
         rvcCategory.setAdapter(adapter);
 
         gvProduct = (GridView) viewRoot.findViewById(R.id.grvProduct);
-        getDataProduct();
-
         adapterProduct = new ProductInCategoryAdapter(getContext(), R.layout.item_category_gridview, listProduct);
         gvProduct.setAdapter(adapterProduct);
     }
 
     @Override
-    public void onClick(View v, Category category) {
-        Toast.makeText(getContext(), category.getNameCategory(), Toast.LENGTH_SHORT).show();
+    public void onClick(View v, Category category, String idCategory) {
+
+        getDataProduct(idCategory);
     }
 }

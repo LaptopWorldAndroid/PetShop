@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PetShop">
 
+        <activity android:name=".Activity.RegisterActivity">
+
+        </activity>
+        <activity android:name=".Activity.LoginActivity">
+
+        </activity>
         <activity android:name=".Activity.HoneActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
