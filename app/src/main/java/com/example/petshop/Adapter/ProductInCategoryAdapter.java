@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 
 
 import com.example.petshop.Class.Category;
+import com.example.petshop.Class.ChildCategory;
 import com.example.petshop.Class.Product;
 import com.example.petshop.R;
 import com.squareup.picasso.Picasso;
@@ -27,19 +28,19 @@ public class ProductInCategoryAdapter extends BaseAdapter {
 
     private Context context;
     private int layout;
-    private List<Product> listProduct;
+    private List<ChildCategory> childCategories;
     private int positionSelect = -1;
 
-    public ProductInCategoryAdapter(Context context, int layout, List<Product> listProduct) {
+    public ProductInCategoryAdapter(Context context, int layout, List<ChildCategory> childCategories) {
         this.context = context;
         this.layout = layout;
-        this.listProduct = listProduct;
+        this.childCategories = childCategories;
     }
 
     @Override
     public int getCount() {
-        if (listProduct.size() != 0 && !listProduct.isEmpty()) {
-            return listProduct.size();
+        if (childCategories.size() != 0 && !childCategories.isEmpty()) {
+            return childCategories.size();
         }
         return 0;
     }
@@ -73,14 +74,14 @@ public class ProductInCategoryAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        final Product product=listProduct.get(position);
-        holder.txtProduct.setText(product.getNameProduct());
-        Picasso.get().load(product.getImgUrl()).into(holder.imgProduct);
+        final ChildCategory child=childCategories.get(position);
+        holder.txtProduct.setText(child.getChildCategoryName());
+        Picasso.get().load(child.getImgChildCategory()).into(holder.imgProduct);
 
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, product.getNameProduct()+"Đây là test1", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, child.getChildCategoryName()+"Đây là test1", Toast.LENGTH_SHORT).show();
             }
         });
 
