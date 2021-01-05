@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.example.petshop.Adapter.CategoryAdapter;
 import com.example.petshop.Adapter.ProductInCategoryAdapter;
 import com.example.petshop.Class.Category;
+import com.example.petshop.Class.ChildCategory;
 import com.example.petshop.Class.Product;
 import com.example.petshop.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -43,10 +44,10 @@ public class CategoryFragment extends Fragment implements CategoryAdapter.ItemCl
     private CategoryAdapter adapter = null;
 
     private GridView gvProduct;
-    private ArrayList<Product> listProduct = new ArrayList<>();
+    private ArrayList<ChildCategory> listChild = new ArrayList<>();
     ;
     private Product product;
-    private ProductInCategoryAdapter adapterProduct = null;
+    private ProductInCategoryAdapter adapterChild = null;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
@@ -80,7 +81,7 @@ public class CategoryFragment extends Fragment implements CategoryAdapter.ItemCl
 
     public void getDataProduct(String id) {
         db = FirebaseFirestore.getInstance();
-        db.collection("product")
+        db.collection("childCategory")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value,
@@ -89,18 +90,16 @@ public class CategoryFragment extends Fragment implements CategoryAdapter.ItemCl
                             Log.w("Fail", "Listen failed.", e);
                             return;
                         }
-                        listProduct.clear();
+                        listChild.clear();
                         for (QueryDocumentSnapshot doc : value) {
-                            if (doc.get("categoryId").toString().equals(id)) {
-                                listProduct.add(new Product(
+                            if (doc.get("parentCatId").toString().equals(id)) {
+                                listChild.add(new ChildCategory(
                                         doc.getId(),
-                                        doc.get("name").toString(),
-                                        doc.get("description").toString(),
-                                        doc.get("imgUrl").toString(),
-                                        Float.parseFloat(doc.get("stock").toString()),
-                                        Float.parseFloat(doc.get("unitPrice").toString())
+                                        doc.get("childCategoryName").toString(),
+                                        doc.get("imgChildCategory").toString(),
+                                        doc.get("parentCatId").toString()
                                 ));
-                                adapterProduct.notifyDataSetChanged();
+                                adapterChild.notifyDataSetChanged();
                             }
 
                         }
@@ -118,8 +117,8 @@ public class CategoryFragment extends Fragment implements CategoryAdapter.ItemCl
         rvcCategory.setAdapter(adapter);
 
         gvProduct = (GridView) viewRoot.findViewById(R.id.grvProduct);
-        adapterProduct = new ProductInCategoryAdapter(getContext(), R.layout.item_category_gridview, listProduct);
-        gvProduct.setAdapter(adapterProduct);
+        adapterChild = new ProductInCategoryAdapter(getContext(), R.layout.item_category_gridview, listChild);
+        gvProduct.setAdapter(adapterChild);
     }
 
     @Override
