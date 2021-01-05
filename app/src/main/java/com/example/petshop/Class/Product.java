@@ -8,6 +8,8 @@ public class Product {
     private float stock;
     private float unitPrice;
 
+    private String count;
+
     public Product() {
     }
 
@@ -19,6 +21,17 @@ public class Product {
         this.stock = stock;
         this.unitPrice = unitPrice;
     }
+
+    public Product(String idProduct, String nameProduct, String description, String imgUrl, float stock, float unitPrice,String count) {
+        this.idProduct = idProduct;
+        this.nameProduct = nameProduct;
+        this.description = description;
+        this.imgUrl = imgUrl;
+        this.stock = stock;
+        this.unitPrice = unitPrice;
+        this.count = count;
+    }
+
 
     public String getIdProduct() {
         return idProduct;
@@ -66,5 +79,13 @@ public class Product {
 
     public void setUnitPrice(float unitPrice) {
         this.unitPrice = unitPrice;
+    }
+
+    public String getCount() {
+        return count;
+    }
+
+    public void setCount(String count) {
+        this.count = count;
     }
 }
