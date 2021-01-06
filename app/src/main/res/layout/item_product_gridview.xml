@@ -14,7 +14,7 @@
         />
 
     <TextView
-        android:id="@+id/tvProductitem"
+        android:id="@+id/Productitemname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/imgProductitem"
@@ -22,6 +22,15 @@
         android:gravity="center"
         android:layout_centerHorizontal="true"
         android:text="Tên sản " />
+    <TextView
+        android:id="@+id/PriProductitem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Productitemname"
+        android:layout_marginTop="1dp"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:text="Giá " />
 
 
 </RelativeLayout>

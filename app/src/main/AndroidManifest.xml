@@ -9,9 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PetShop">
-        <activity android:name=".Activity.ShoppingCartActivity">
-
-        </activity>
+        <activity android:name=".Activity.ListProductActivity" />
+        <activity android:name=".Activity.ShoppingCartActivity" />
         <activity android:name=".Activity.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,13 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.RegisterActivity">
-
-        </activity>
-        <activity android:name=".Activity.LoginActivity">
-
-        </activity>
-
+        <activity android:name=".Activity.RegisterActivity" />
+        <activity android:name=".Activity.LoginActivity" />
         <activity android:name=".Activity.CategoryActivity" />
         <activity android:name=".Activity.MainActivity" />
     </application>

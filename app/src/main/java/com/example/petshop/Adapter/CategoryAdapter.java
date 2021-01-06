@@ -1,4 +1,4 @@
-    package com.example.petshop.Adapter;
+package com.example.petshop.Adapter;
 
 import android.content.Context;
 import android.graphics.Color;
