@@ -1,8 +1,8 @@
 package com.example.petshop.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,18 +11,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
+import com.example.petshop.Activity.ListProductActivity;
 import com.example.petshop.Adapter.CategoryAdapter;
 import com.example.petshop.Adapter.ProductInCategoryAdapter;
 import com.example.petshop.Class.Category;
 import com.example.petshop.Class.ChildCategory;
 import com.example.petshop.Class.Product;
 import com.example.petshop.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -31,7 +30,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.annotation.Nullable;
 
@@ -119,11 +117,17 @@ public class CategoryFragment extends Fragment implements CategoryAdapter.ItemCl
         gvProduct = (GridView) viewRoot.findViewById(R.id.grvProduct);
         adapterChild = new ProductInCategoryAdapter(getContext(), R.layout.item_category_gridview, listChild);
         gvProduct.setAdapter(adapterChild);
+        gvProduct.setOnItemClickListener (new AdapterView.OnItemClickListener () {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent (getActivity(), ListProductActivity.class);
+                startActivity (intent);
+            }
+        });
     }
 
     @Override
     public void onClick(View v, Category category, String idCategory) {
-
         getDataProduct(idCategory);
     }
 }

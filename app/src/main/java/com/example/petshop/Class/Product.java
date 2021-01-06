@@ -10,7 +10,7 @@ public class Product {
 
     private String count;
 
-    public Product() {
+    public Product(int ic_bone, String s, int i) {
     }
 
     public Product(String idProduct, String nameProduct, String description, String imgUrl, float stock, float unitPrice) {
