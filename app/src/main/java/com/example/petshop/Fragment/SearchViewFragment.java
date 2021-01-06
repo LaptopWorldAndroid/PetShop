@@ -12,27 +12,35 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 
 import com.example.petshop.Adapter.CategoryAdapter;
 import com.example.petshop.Adapter.SearchAdapter;
 import com.example.petshop.Class.Category;
+import com.example.petshop.Class.ChildCategory;
 import com.example.petshop.Class.Product;
 import com.example.petshop.R;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+
+import javax.annotation.Nullable;
 
 
 public class SearchViewFragment extends Fragment {
 
     private View viewRoot;
     private RecyclerView rcvResultList;
-    private SearchView searchView;
+    private AutoCompleteTextView autoCompleteTextView;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     SearchAdapter adapter;
-    private ArrayList<Product> listProduct = new ArrayList<>();
-    ArrayList<Product> list;
+    private ArrayList<String> listProductName = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,32 +53,55 @@ public class SearchViewFragment extends Fragment {
         return viewRoot;
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
 
 
-    private void search(String s){
-        ArrayList<Product>mylist=new ArrayList<>();
+//    private void search(String s){
+//        ArrayList<Product>mylist=new ArrayList<>();
+//
+//        for (Product object: list){
+//            if(object.getNameProduct().toLowerCase().contains(s.toLowerCase()))
+//            {
+//                mylist.add(object);
+//            }
+//
+//        }
+//
+//        SearchAdapter adapter=new SearchAdapter(listProduct);
+//
+//        rcvResultList.setAdapter(adapter);
+//    }
 
-        for (Product object: list){
-            if(object.getNameProduct().toLowerCase().contains(s.toLowerCase()))
-            {
-                mylist.add(object);
-            }
+    private void Init() {
+        autoCompleteTextView = (AutoCompleteTextView) viewRoot.findViewById(R.id.actpSearch);
+        rcvResultList = (RecyclerView) viewRoot.findViewById(R.id.rcvResultList);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 
-        }
+        getData();
 
-        SearchAdapter adapter=new SearchAdapter(listProduct);
-
+        layoutManager.setOrientation(RecyclerView.VERTICAL);
         rcvResultList.setAdapter(adapter);
     }
 
-    private void Init() {
-        rcvResultList = (RecyclerView) viewRoot.findViewById(R.id.rcvResultList);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        layoutManager.setOrientation(RecyclerView.VERTICAL);
+    private void getData() {
+            db = FirebaseFirestore.getInstance();
+            db.collection("product")
+                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable QuerySnapshot value,
+                                            @Nullable FirebaseFirestoreException e) {
+                            if (e != null) {
+                                Log.w("Fail", "Listen failed.", e);
+                                return;
+                            }
+                            listProductName.clear();
+                            for (QueryDocumentSnapshot doc : value) {
 
+                                listProductName.add(new String(
+                                            doc.get("name").toString()
+                                    ));
+                                    adapter.notifyDataSetChanged();
+                            }
+                        }
+                    });
     }
 }

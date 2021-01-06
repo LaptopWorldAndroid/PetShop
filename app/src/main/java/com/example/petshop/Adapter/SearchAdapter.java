@@ -50,9 +50,6 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         TextView tvProductName, tvPrice, tvQuantity;
         ImageView imgProduct;
-        CardView cardView;
-
-
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -60,7 +57,6 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             imgProduct=itemView.findViewById(R.id.imvProduct);
             tvPrice=itemView.findViewById(R.id.tvPrice);
             tvQuantity=itemView.findViewById(R.id.tvQuantity);
-            cardView=itemView.findViewById(R.id.cardview);
         }
     }
 }

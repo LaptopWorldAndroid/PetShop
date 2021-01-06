@@ -15,10 +15,11 @@
         tools:context=".SearchActivity"
         >
 
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/SearchView"
+        <AutoCompleteTextView
+            android:id="@+id/actpSearch"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
+            android:completionThreshold="1"
             app:showAsAction="always"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
