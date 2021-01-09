@@ -48,6 +48,7 @@
             android:background="@color/primary_color"
             android:src="@drawable/ic_baseline_shopping_cart_24"
             app:tint="@color/background_color" />
+
     </LinearLayout>
     <View
         android:layout_width="match_parent"

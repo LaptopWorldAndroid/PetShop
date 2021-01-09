@@ -48,8 +48,6 @@ public class SearchViewFragment extends Fragment {
         // Inflate the layout for this fragment
 
         viewRoot = inflater.inflate(R.layout.fragment_search_view, container, false);
-
-        Init();
         return viewRoot;
     }
 
@@ -108,4 +106,5 @@ public class SearchViewFragment extends Fragment {
                         }
                     });
     }
+
 }
