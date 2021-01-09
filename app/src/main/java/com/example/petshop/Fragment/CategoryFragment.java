@@ -16,6 +16,7 @@ import android.widget.GridView;
 import android.widget.LinearLayout;
 
 import com.example.petshop.Activity.ListProductActivity;
+import com.example.petshop.Activity.ProductDetailActivity;
 import com.example.petshop.Adapter.CategoryAdapter;
 import com.example.petshop.Adapter.ProductInCategoryAdapter;
 import com.example.petshop.Class.Category;
@@ -121,6 +122,9 @@ public class CategoryFragment extends Fragment implements CategoryAdapter.ItemCl
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent (getActivity(), ListProductActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString ("IdChild",listChild.get(position).getIdChildCategory ());
+                intent.putExtras(bundle);
                 startActivity (intent);
             }
         });
