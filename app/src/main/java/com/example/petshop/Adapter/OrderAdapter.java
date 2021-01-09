@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,14 +18,12 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class CartItemsAdapter extends RecyclerView.Adapter<CartItemsAdapter.ViewHolder> {
-
+public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> {
     private Context context;
     private ArrayList<Product> products;
-    private ItemClickListener itemClickListener;
+    private CartItemsAdapter.ItemClickListener itemClickListener;
 
-
-    public CartItemsAdapter(Context context, ArrayList<Product> products, ItemClickListener itemClickListener) {
+    public OrderAdapter(Context context, ArrayList<Product> products, CartItemsAdapter.ItemClickListener itemClickListener) {
         this.context = context;
         this.products = products;
         this.itemClickListener = itemClickListener;
@@ -34,22 +31,21 @@ public class CartItemsAdapter extends RecyclerView.Adapter<CartItemsAdapter.View
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public OrderAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View cartView = inflater.inflate(R.layout.cart_item, parent, false);
-        ViewHolder viewHolder = new ViewHolder(cartView);
+        View cartView = inflater.inflate(R.layout.order_item, parent, false);
+        OrderAdapter.ViewHolder viewHolder = new OrderAdapter.ViewHolder(cartView);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull OrderAdapter.ViewHolder holder, int position) {
         Product product = products.get(position);
         Picasso.get().load(product.getImgUrl()).into(holder.imageCart);
 
         holder.cartItemName.setText(product.getNameProduct());
         holder.cartItemPrice.setText(String.valueOf(product.getUnitPrice()));
         holder.cartItemCounter.setText(String.valueOf(product.getCount()));
-
     }
 
     @Override
@@ -62,8 +58,6 @@ public class CartItemsAdapter extends RecyclerView.Adapter<CartItemsAdapter.View
         private TextView cartItemName;
         private TextView cartItemPrice;
         private EditText cartItemCounter;
-        private Button btnIncrease;
-        private Button btnDecrease;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -71,27 +65,10 @@ public class CartItemsAdapter extends RecyclerView.Adapter<CartItemsAdapter.View
             cartItemName = itemView.findViewById(R.id.cartItemName);
             cartItemPrice = itemView.findViewById(R.id.cartItemPrice);
             cartItemCounter = itemView.findViewById(R.id.cartItemCounter);
-            btnIncrease = itemView.findViewById(R.id.btnIncrease);
-            btnDecrease = itemView.findViewById(R.id.btnDecrease);
-
-            btnIncrease.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    itemClickListener.onClickIncrease(v, getLayoutPosition());
-                }
-            });
-
-            btnDecrease.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    itemClickListener.onClickDecrease(v, getLayoutPosition());
-                }
-            });
         }
     }
 
     public interface ItemClickListener {
-        void onClickIncrease(View view, int position);
-        void onClickDecrease(View view, int position);
+
     }
 }
