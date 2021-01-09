@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.petshop.Adapter.NavigationAdapter;
@@ -39,6 +41,7 @@ public class HomeActivity extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private ArrayList<String> listProductName = new ArrayList<>();
     private ArrayAdapter<String> adapter;
+    ImageView shoppingCart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +55,7 @@ public class HomeActivity extends AppCompatActivity {
 
         ViewPager2 viewPager2 = findViewById(R.id.viewPager);
         viewPager2.setAdapter(new NavigationAdapter(this));
+        shoppingCart = findViewById(R.id.shoppingCart);
 
         TabLayout tabLayout = findViewById(R.id.tabLayout);
 
@@ -104,6 +108,17 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        addEvents();
+    }
+
+    private void addEvents() {
+        shoppingCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, ShoppingCartActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void getData() {
