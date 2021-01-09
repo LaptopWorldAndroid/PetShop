@@ -99,7 +99,7 @@ public class SearchViewFragment extends Fragment {
                                 listProductName.add(new String(
                                             doc.get("name").toString()
                                     ));
-                                    adapter.notifyDataSetChanged();
+                                //adapter.notifyDataSetChanged();
                             }
                         }
                     });

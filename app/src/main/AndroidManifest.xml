@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PetShop">
+        <activity android:name=".Activity.OrderActivity"></activity>
         <activity android:name=".Activity.ListProductActivity" />
         <activity android:name=".Activity.ShoppingCartActivity" />
         <activity android:name=".Activity.HomeActivity">
