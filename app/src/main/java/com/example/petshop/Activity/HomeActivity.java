@@ -3,8 +3,10 @@ package com.example.petshop.Activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -19,6 +21,7 @@ import android.widget.Toast;
 import com.example.petshop.Adapter.NavigationAdapter;
 import com.example.petshop.Adapter.SearchAdapter;
 import com.example.petshop.Class.Product;
+import com.example.petshop.Fragment.HomeFragment;
 import com.example.petshop.R;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.tabs.TabLayout;
@@ -54,46 +57,30 @@ public class HomeActivity extends AppCompatActivity {
         viewPager2.setAdapter(new NavigationAdapter(this));
 
         TabLayout tabLayout = findViewById(R.id.tabLayout);
+// Add tab to navigation bar
+        tabLayout.addTab(tabLayout.newTab().setText("Home").setIcon(R.drawable.ic_baseline_home_24));
+        tabLayout.addTab(tabLayout.newTab().setText("Category").setIcon(R.drawable.ic_baseline_category_24));
+        tabLayout.addTab(tabLayout.newTab().setText("Account").setIcon(R.drawable.ic_baseline_account_circle_24));
 
-
-        TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(
-                tabLayout, viewPager2, new TabLayoutMediator.TabConfigurationStrategy() {
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
-                switch (position) {
-                    case 0: {
-                        tab.setText("Trang chủ");
-                        tab.setIcon(R.drawable.ic_baseline_home_24);
+            public void onTabSelected(TabLayout.Tab tab) {
+                    viewPager2.setCurrentItem(tab.getPosition());
+            }
 
-//                        BadgeDrawable badgeDrawable = tab.getOrCreateBadge();
-//                        badgeDrawable.setBackgroundColor(ContextCompat.getColor(getApplicationContext(),R.color.white));
-//                        badgeDrawable.setVisible(true);
-
-                        break;
-                    }
-                    case 1: {
-                        tab.setText("Danh mục");
-                        tab.setIcon(R.drawable.ic_baseline_category_24);
-
-                        break;
-                    }
-                    case 2: {
-                        tab.setText("Tìm kiếm");
-                        tab.setIcon(R.drawable.ic_baseline_search_24);
-                        break;
-                    }
-                    case 3: {
-                        tab.setText("Tài khoản");
-                        tab.setIcon(R.drawable.ic_baseline_account_circle_24);
-                        break;
-                    }
-                }
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
 
             }
 
-        }
-        );
-        tabLayoutMediator.attach();
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+
+
 
         autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
