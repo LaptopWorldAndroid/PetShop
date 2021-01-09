@@ -1,35 +1,46 @@
 package com.example.petshop.Activity;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.petshop.Class.Customer;
 import com.example.petshop.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
     EditText et_fullname, et_place, et_phone, et_email, et_passsword;
+    TextView tvSignIn;
     Button bt_register;
     FirebaseDatabase database;
     DatabaseReference mDatabase;
-    FirebaseAuth mAuth;
     static final String USER = "user";
     static final String TAG = "registerActivity";
     Customer user;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +58,17 @@ public class RegisterActivity extends AppCompatActivity {
 
         database = FirebaseDatabase.getInstance();
         mDatabase = database.getReference(USER);
-        mAuth = FirebaseAuth.getInstance();
+//        mAuth = FirebaseAuth.getInstance();
 
+        linkViews();
+        addEvents();
+    }
 
+    private void linkViews() {
+        tvSignIn = findViewById(R.id.tv_signin);
+    }
+
+    private void addEvents() {
         bt_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,24 +79,25 @@ public class RegisterActivity extends AppCompatActivity {
                 Username = et_email.getText().toString();
                 Address = et_place.getText().toString();
                 Password = et_passsword.getText().toString();
-                user = new Customer(Username, Password, Displayname, Phone, Address);
-                registerUser(Username, Password);
+                user = new Customer(Username, Displayname, Address, Password, Phone);
+                addDocument(user);
 
-                if (Displayname.equals("")) ;
+                Log.d("USER", user.getDisplayName());
+
+                if (Displayname.isEmpty()) ;
                 {
                     Toast.makeText(RegisterActivity.this, "name", Toast.LENGTH_SHORT).show();
                 }
-                if (Phone.equals("")) ;
+                if (Phone.isEmpty()) ;
                 {
                     Toast.makeText(RegisterActivity.this, "phone", Toast.LENGTH_SHORT).show();
                 }
 
-                if (Address.equals("")) ;
+                if (Address.isEmpty()) ;
                 {
                     Toast.makeText(RegisterActivity.this, "place", Toast.LENGTH_SHORT).show();
                 }
-                if (Password.equals("")) ;
-                {
+                if (Password.isEmpty()) {
                     Toast.makeText(RegisterActivity.this, "pass", Toast.LENGTH_SHORT).show();
                 }
                 // register the user in firebase
@@ -85,30 +105,55 @@ public class RegisterActivity extends AppCompatActivity {
                 //  Log.d("REGISTER", "onClick: 123");
             }
         });
+
+        tvSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(RegisterActivity.this,LoginActivity.class));
+            }
+        });
+
     }
 
-    public void registerUser(String username, String password) {
-        mAuth.createUserWithEmailAndPassword(username, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+    // Add a new document with a generated id.
+    public void addDocument(Customer customer) {
+        Map<String, String> data = new HashMap<>();
+        data.put("displayName", customer.getDisplayName());
+        data.put("password", customer.getPassword());
+        data.put("address", customer.getAddress());
+        data.put("username", customer.getUsername());
+        data.put("phone", customer.getPhone());
+
+        Log.d("AAA", "addDocument: " + data.toString());
+        db.collection("customer")
+                .add(data)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(RegisterActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d("dooo", "DocumentSnapshot written with ID: " + documentReference.getId());
+                        AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                        builder.setIcon(R.drawable.ic_check);
+                        builder.setTitle("Đăng Ký");
+                        builder.setMessage("Thành công");
+                        builder.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
 
-                        }
-
-                        // ...
+                        AlertDialog alertDialog = builder.create();
+                        alertDialog.show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("faill", "Error adding document", e);
                     }
                 });
     }
+
 
     public void updateUI(FirebaseUser currentUser) {
         String keyId = mDatabase.push().getKey();

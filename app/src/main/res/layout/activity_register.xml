@@ -134,5 +134,17 @@
         android:backgroundTint="@android:color/white"
         />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:id="@+id/tv_signin"
+        android:text="Đăng nhập"
+        android:textColor="@android:color/black"
+        android:textColorHint="@color/white"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/textlines" />
+
+
 
 </LinearLayout>
