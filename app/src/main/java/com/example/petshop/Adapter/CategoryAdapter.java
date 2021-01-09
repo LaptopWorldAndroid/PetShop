@@ -66,6 +66,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
                 @Override
                 public void onClick(View v) {
                     itemClickListener.onClick(v,mCategory.get(getLayoutPosition()),mCategory.get(getLayoutPosition()).getIdCategory());
+
                 }
             });
         }
