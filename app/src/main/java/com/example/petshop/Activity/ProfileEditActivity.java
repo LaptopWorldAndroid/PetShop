@@ -68,7 +68,8 @@ public class ProfileEditActivity extends AppCompatActivity {
                                 builder.setNegativeButton("OK ", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        dialog.cancel();
+                                        ProfileEditActivity.this.finish ();
+                                        dialog.dismiss ();
                                     }
                                 });
                                 AlertDialog alertDialog = builder.create();
