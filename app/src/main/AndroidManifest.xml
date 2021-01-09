@@ -11,6 +11,7 @@
         android:theme="@style/Theme.PetShop">
 
         <activity android:name=".Activity.ProductDetailActivity"></activity>
+        <activity android:name=".Activity.SearchActivity"></activity>
 
         <activity android:name=".Activity.OrderActivity"></activity>
 

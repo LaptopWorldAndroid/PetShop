@@ -35,7 +35,7 @@ import java.util.ArrayList;
 
 import javax.annotation.Nullable;
 
-public class ProductDetailActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity {
     ScrollView prddetal;
     ImageView img;
     TextView txtName, txtPrice, txtsoluong, txtmota;
@@ -59,26 +59,26 @@ public class ProductDetailActivity extends AppCompatActivity {
 
         Bundle bundle = intent.getBundleExtra("BUNDLE");
 
-//        productName = (String) bundle.getString("productName","");
+        productName = (String) bundle.getString("productName","");
 
-    getDataIntent();
+     //   getDataIntent();
 
-        //getData();
+        getData();
 
 
     }
 
-    private void getDataIntent() {
-        Bundle bundle = getIntent().getExtras();
-        product = new Product();
-        product = (Product) bundle.getSerializable("Object");
-
-        Picasso.get().load(product.getImgUrl()).into(img);
-        txtName.setText(String.valueOf(product.getNameProduct()));
-        txtPrice.setText(String.valueOf(product.getUnitPrice()));
-        txtmota.setText(String.valueOf(product.getDescription()));
-        txtsoluong.setText("Số lượng: " + String.valueOf(product.getStock()));
-    }
+//    private void getDataIntent() {
+//        Bundle bundle = getIntent().getExtras();
+//        product = new Product();
+//        product = (Product) bundle.getSerializable("Object");
+//
+//        Picasso.get().load(product.getImgUrl()).into(img);
+//        txtName.setText(String.valueOf(product.getNameProduct()));
+//        txtPrice.setText(String.valueOf(product.getUnitPrice()));
+//        txtmota.setText(String.valueOf(product.getDescription()));
+//        txtsoluong.setText("Số lượng: " + String.valueOf(product.getStock()));
+//    }
 
 
     private void getDataProduct(String name) {
