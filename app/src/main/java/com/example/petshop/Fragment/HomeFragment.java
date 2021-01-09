@@ -2,9 +2,13 @@ package com.example.petshop.Fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +18,7 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 import com.example.petshop.Adapter.CategoryAdapter;
+import com.example.petshop.Adapter.NavigationAdapter;
 import com.example.petshop.Adapter.ProductInCategoryAdapter;
 import com.example.petshop.Class.Category;
 import com.example.petshop.Class.Product;
@@ -81,7 +86,22 @@ public class HomeFragment extends Fragment implements CategoryAdapter.ItemClickL
 
     @Override
     public void onClick(View v, Category category, String idCategory) {
-        Toast.makeText(getContext(), category.getNameCategory(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), category.getNameCategory(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), category.getNameCategory(), Toast.LENGTH_SHORT).show();
+        }
+
+    @NonNull
+    public Fragment createFragment(int position) {
+        switch (position) {
+            case 0:
+                return new HomeFragment();
+            case 1:
+                return new CategoryFragment();
+            case 2:
+                return new SearchViewFragment();
+            default:
+                return new AccountFragment();
+        }
     }
 
 

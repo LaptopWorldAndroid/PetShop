@@ -10,16 +10,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.petshop.Class.ListProduct;
+import com.example.petshop.Class.Product;
 import com.example.petshop.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class ProductAdapter extends BaseAdapter {
     Activity context;
     int item_layout;
-    List<ListProduct> listProducts;
+    List<Product> listProducts;
 
-    public ProductAdapter(Activity context, int item_layout, List<ListProduct> listProducts) {
+    public ProductAdapter(Activity context, int item_layout, List<Product> listProducts) {
         this.context = context;
         this.item_layout = item_layout;
         this.listProducts = listProducts;
@@ -58,10 +60,10 @@ public class ProductAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        ListProduct Product = listProducts.get(position);
-        holder.imvPhoto.setImageResource(Product.getImg ());
-        holder.txtName.setText(Product.getName());
-        holder.txtPrice.setText(String.valueOf(Product.getPrice()) + " VND");
+        Product Product = listProducts.get(position);
+        Picasso.get().load(Product.getImgUrl ()).into(holder.imvPhoto);
+        holder.txtName.setText(Product.getNameProduct ());
+        holder.txtPrice.setText(String.valueOf(Product.getUnitPrice ()) + " VND");
 
         return convertView;
     }
@@ -71,7 +73,5 @@ public class ProductAdapter extends BaseAdapter {
         TextView txtName, txtPrice;
     }
 
-    public static class ItemClickListener {
-    }
 }
 
