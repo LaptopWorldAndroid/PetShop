@@ -77,9 +77,9 @@ public class SearchViewFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 
         getData();
-
+//        adapter=new SearchAdapter();
         layoutManager.setOrientation(RecyclerView.VERTICAL);
-        rcvResultList.setAdapter(adapter);
+//        rcvResultList.setAdapter(adapter);
     }
 
     private void getData() {
@@ -99,7 +99,11 @@ public class SearchViewFragment extends Fragment {
                                 listProductName.add(new String(
                                             doc.get("name").toString()
                                     ));
+
                                 //adapter.notifyDataSetChanged();
+
+                                    
+
                             }
                         }
                     });
