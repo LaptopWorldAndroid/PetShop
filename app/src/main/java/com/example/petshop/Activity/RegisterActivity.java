@@ -27,8 +27,8 @@ public class RegisterActivity extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference mDatabase;
     FirebaseAuth mAuth;
-    static final String USER= "user";
-    static final String TAG= "registerActivity";
+    static final String USER = "user";
+    static final String TAG = "registerActivity";
     Customer user;
 
     @Override
@@ -39,7 +39,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         et_fullname = findViewById(R.id.et_fullname);
         et_place = findViewById(R.id.et_place);
-//        et_email = findViewById(R.id.et_email);
+        et_email = findViewById(R.id.et_email);
         et_phone = findViewById(R.id.et_phone);
         et_passsword = findViewById(R.id.et_password);
 
@@ -50,40 +50,44 @@ public class RegisterActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
 
-
         bt_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                String Username,Phone,Address,Password,Displayname;
+                String Username, Phone, Address, Password, Displayname;
                 Displayname = et_fullname.getText().toString();
                 Phone = et_phone.getText().toString();
                 Username = et_email.getText().toString();
                 Address = et_place.getText().toString();
-                Password  = et_passsword.getText().toString();
+                Password = et_passsword.getText().toString();
                 user = new Customer(Username, Password, Displayname, Phone, Address);
                 registerUser(Username, Password);
 
-                if(Displayname.equals(""));{
-                Toast.makeText(RegisterActivity.this, "name", Toast.LENGTH_SHORT).show();
+                if (Displayname.equals("")) ;
+                {
+                    Toast.makeText(RegisterActivity.this, "name", Toast.LENGTH_SHORT).show();
                 }
-                if(Phone.equals(""));{
+                if (Phone.equals("")) ;
+                {
                     Toast.makeText(RegisterActivity.this, "phone", Toast.LENGTH_SHORT).show();
                 }
 
-                if(Address.equals(""));{
+                if (Address.equals("")) ;
+                {
                     Toast.makeText(RegisterActivity.this, "place", Toast.LENGTH_SHORT).show();
                 }
-                if(Password.equals(""));{
+                if (Password.equals("")) ;
+                {
                     Toast.makeText(RegisterActivity.this, "pass", Toast.LENGTH_SHORT).show();
                 }
                 // register the user in firebase
 
-              //  Log.d("REGISTER", "onClick: 123");
+                //  Log.d("REGISTER", "onClick: 123");
             }
         });
     }
-    public void registerUser(String username, String password){
+
+    public void registerUser(String username, String password) {
         mAuth.createUserWithEmailAndPassword(username, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -105,10 +109,11 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 });
     }
-    public void updateUI(FirebaseUser currentUser){
+
+    public void updateUI(FirebaseUser currentUser) {
         String keyId = mDatabase.push().getKey();
         mDatabase.child(keyId).setValue(user);
-        Intent loginIntent = new Intent(this,MainActivity.class);
+        Intent loginIntent = new Intent(this, MainActivity.class);
         startActivity(loginIntent);
     }
 }

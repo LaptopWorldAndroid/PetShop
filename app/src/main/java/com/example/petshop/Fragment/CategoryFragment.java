@@ -1,8 +1,8 @@
 package com.example.petshop.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,17 +11,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
+import com.example.petshop.Activity.ListProductActivity;
 import com.example.petshop.Adapter.CategoryAdapter;
 import com.example.petshop.Adapter.ProductInCategoryAdapter;
 import com.example.petshop.Class.Category;
+import com.example.petshop.Class.ChildCategory;
 import com.example.petshop.Class.Product;
 import com.example.petshop.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -30,7 +30,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.annotation.Nullable;
 
@@ -43,10 +42,10 @@ public class CategoryFragment extends Fragment implements CategoryAdapter.ItemCl
     private CategoryAdapter adapter = null;
 
     private GridView gvProduct;
-    private ArrayList<Product> listProduct = new ArrayList<>();
+    private ArrayList<ChildCategory> listChild = new ArrayList<>();
     ;
     private Product product;
-    private ProductInCategoryAdapter adapterProduct = null;
+    private ProductInCategoryAdapter adapterChild = null;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
@@ -80,7 +79,7 @@ public class CategoryFragment extends Fragment implements CategoryAdapter.ItemCl
 
     public void getDataProduct(String id) {
         db = FirebaseFirestore.getInstance();
-        db.collection("product")
+        db.collection("childCategory")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value,
@@ -89,18 +88,16 @@ public class CategoryFragment extends Fragment implements CategoryAdapter.ItemCl
                             Log.w("Fail", "Listen failed.", e);
                             return;
                         }
-                        listProduct.clear();
+                        listChild.clear();
                         for (QueryDocumentSnapshot doc : value) {
-                            if (doc.get("categoryId").toString().equals(id)) {
-                                listProduct.add(new Product(
+                            if (doc.get("parentCatId").toString().equals(id)) {
+                                listChild.add(new ChildCategory(
                                         doc.getId(),
-                                        doc.get("name").toString(),
-                                        doc.get("description").toString(),
-                                        doc.get("imgUrl").toString(),
-                                        Float.parseFloat(doc.get("stock").toString()),
-                                        Float.parseFloat(doc.get("unitPrice").toString())
+                                        doc.get("childCategoryName").toString(),
+                                        doc.get("imgChildCategory").toString(),
+                                        doc.get("parentCatId").toString()
                                 ));
-                                adapterProduct.notifyDataSetChanged();
+                                adapterChild.notifyDataSetChanged();
                             }
 
                         }
@@ -118,13 +115,19 @@ public class CategoryFragment extends Fragment implements CategoryAdapter.ItemCl
         rvcCategory.setAdapter(adapter);
 
         gvProduct = (GridView) viewRoot.findViewById(R.id.grvProduct);
-        adapterProduct = new ProductInCategoryAdapter(getContext(), R.layout.item_category_gridview, listProduct);
-        gvProduct.setAdapter(adapterProduct);
+        adapterChild = new ProductInCategoryAdapter(getContext(), R.layout.item_category_gridview, listChild);
+        gvProduct.setAdapter(adapterChild);
+        gvProduct.setOnItemClickListener (new AdapterView.OnItemClickListener () {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent (getActivity(), ListProductActivity.class);
+                startActivity (intent);
+            }
+        });
     }
 
     @Override
     public void onClick(View v, Category category, String idCategory) {
-
         getDataProduct(idCategory);
     }
 }
