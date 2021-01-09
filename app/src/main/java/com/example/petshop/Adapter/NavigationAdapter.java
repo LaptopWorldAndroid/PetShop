@@ -32,8 +32,6 @@ public class NavigationAdapter extends FragmentStateAdapter {
                 return new HomeFragment();
             case 1:
                 return new CategoryFragment();
-            case 2:
-                return new SearchViewFragment();
             default:
                 return new AccountFragment();
         }

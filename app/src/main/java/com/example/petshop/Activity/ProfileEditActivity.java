@@ -2,8 +2,10 @@ package com.example.petshop.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,7 +30,7 @@ import java.util.Map;
 
 public class ProfileEditActivity extends AppCompatActivity {
 
-    EditText edtDisplayName,edtPhone,edtAddress;
+    EditText edtDisplayName, edtPhone, edtAddress;
     Button btnUpdate;
     Customer customer;
     ArrayList<String> list = new ArrayList();
@@ -40,7 +42,7 @@ public class ProfileEditActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile_edit);
 
         Init();
-        getData("37yx9CWrBEfh9SZ2Cr2n");
+        getData("UDMQ0wNPNuHrp0zrdWrJ");
         addEvents();
     }
 
@@ -48,16 +50,29 @@ public class ProfileEditActivity extends AppCompatActivity {
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DocumentReference c = db.collection("customer").document("37yx9CWrBEfh9SZ2Cr2n");
+                Map<String, Object> updates = new HashMap<>();
+                updates.put("address", edtAddress.getText().toString());
+                updates.put("phone", edtPhone.getText().toString());
+                updates.put("displayName", edtDisplayName.getText().toString());
+                DocumentReference c = db.collection("customer").document("UDMQ0wNPNuHrp0zrdWrJ");
                 c
-                        .update("address", customer.getAddress())
-                        .update("phone", customer.getPhone())
-                        .update("address", customer.getAddress())
-                        .update("address", customer.getAddress())
+                        .update(updates)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                Log.d("TAG", "DocumentSnapshot successfully updated!");
+                                Log.d("3x33", "DocumentSnapshot successfully updated!");
+                                AlertDialog.Builder builder = new AlertDialog.Builder(ProfileEditActivity.this);
+                                builder.setIcon(R.drawable.ic_check);
+                                builder.setTitle("Thông báo!");
+                                builder.setMessage("Cập nhật thành công.");
+                                builder.setNegativeButton("OK ", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.cancel();
+                                    }
+                                });
+                                AlertDialog alertDialog = builder.create();
+                                alertDialog.show();
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
@@ -72,10 +87,10 @@ public class ProfileEditActivity extends AppCompatActivity {
     }
 
     private void Init() {
-        edtDisplayName=findViewById(R.id.edtDisplayName);
-        edtPhone=findViewById(R.id.edtPhone);
-        edtAddress=findViewById(R.id.edtAddress);
-        btnUpdate=findViewById(R.id.btnUpdateProfile);
+        edtDisplayName = findViewById(R.id.edtDisplayName);
+        edtPhone = findViewById(R.id.edtPhone);
+        edtAddress = findViewById(R.id.edtAddress);
+        btnUpdate = findViewById(R.id.btnUpdateProfile);
     }
 
     private void onSetData() {
@@ -98,15 +113,15 @@ public class ProfileEditActivity extends AppCompatActivity {
                 if (snapshot != null && snapshot.exists()) {
 
                     Map<String, Object> data = new HashMap<>();
-                    data=snapshot.getData();
+                    data = snapshot.getData();
 
                     customer = new Customer(
-                            data.get("email").toString(),
                             data.get("username").toString(),
+                            data.get("displayName").toString(),
                             data.get("address").toString(),
                             data.get("password").toString(),
                             data.get("phone").toString());
-                    Log.d("33333", customer.getDisplayName());
+                    Log.d("33333", data.toString());
                     onSetData();
                 } else {
                     Log.d("3", "Current data: null");
