@@ -6,12 +6,12 @@
     android:padding="8dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+
     <ImageView
         android:id="@+id/imgProductitem"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@mipmap/ic_launcher"
-        />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_launcher" />
 
     <TextView
         android:id="@+id/Productitemname"
@@ -30,7 +30,7 @@
         android:layout_marginTop="1dp"
         android:gravity="center"
         android:layout_centerHorizontal="true"
-        android:text="Giá " />
+        android:text="Gias" />
 
 
 </RelativeLayout>

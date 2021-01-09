@@ -51,4 +51,60 @@ public class SearchViewFragment extends Fragment {
         return viewRoot;
     }
 
+
+
+//    private void search(String s){
+//        ArrayList<Product>mylist=new ArrayList<>();
+//
+//        for (Product object: list){
+//            if(object.getNameProduct().toLowerCase().contains(s.toLowerCase()))
+//            {
+//                mylist.add(object);
+//            }
+//
+//        }
+//
+//        SearchAdapter adapter=new SearchAdapter(listProduct);
+//
+//        rcvResultList.setAdapter(adapter);
+//    }
+
+    private void Init() {
+        autoCompleteTextView = (AutoCompleteTextView) viewRoot.findViewById(R.id.actpSearch);
+        rcvResultList = (RecyclerView) viewRoot.findViewById(R.id.rcvResultList);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+
+        getData();
+//        adapter=new SearchAdapter();
+        layoutManager.setOrientation(RecyclerView.VERTICAL);
+//        rcvResultList.setAdapter(adapter);
+    }
+
+    private void getData() {
+            db = FirebaseFirestore.getInstance();
+            db.collection("product")
+                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable QuerySnapshot value,
+                                            @Nullable FirebaseFirestoreException e) {
+                            if (e != null) {
+                                Log.w("Fail", "Listen failed.", e);
+                                return;
+                            }
+                            listProductName.clear();
+                            for (QueryDocumentSnapshot doc : value) {
+
+                                listProductName.add(new String(
+                                            doc.get("name").toString()
+                                    ));
+
+                                //adapter.notifyDataSetChanged();
+
+                                    
+
+                            }
+                        }
+                    });
+    }
+
 }

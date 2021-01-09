@@ -1,6 +1,8 @@
 package com.example.petshop.Class;
 
-public class Product {
+import java.io.Serializable;
+
+public class Product implements Serializable {
     private String idProduct;
     private String nameProduct;
     private String description;
@@ -10,7 +12,12 @@ public class Product {
 
     private String count;
 
+
+    public Product() {}
+
+
     public Product(int ic_bone, String s, int i) {
+
     }
 
     public Product(String idProduct, String nameProduct, String description, String imgUrl, float stock, float unitPrice) {
