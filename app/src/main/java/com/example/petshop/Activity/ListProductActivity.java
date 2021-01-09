@@ -44,6 +44,7 @@ public class ListProductActivity extends AppCompatActivity {
     Intent Intent;
     FirebaseFirestore db = FirebaseFirestore.getInstance ();
     String idCHild;
+    ImageView backpro;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate (savedInstanceState);
@@ -101,6 +102,18 @@ public class ListProductActivity extends AppCompatActivity {
                 startActivity (intent);
             }
         });
+
+        backpro.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                if (backpro.getBaseline () == View.VISIBLE) {
+                    backpro.setVisibility (View.INVISIBLE); //or GONE
+
+                } else {
+                    finish ();
+                }
+            }
+        });
     }
 
 //    @Override
@@ -125,6 +138,7 @@ public class ListProductActivity extends AppCompatActivity {
 
     private void linkViews() {
         grvlistProduct = findViewById (R.id.grvlistProduct);
+        backpro =findViewById (R.id.backproduct);
 
     }
 }
