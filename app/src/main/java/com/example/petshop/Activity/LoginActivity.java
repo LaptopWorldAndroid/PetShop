@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -37,13 +39,13 @@ public class LoginActivity extends AppCompatActivity {
         bt_submit = findViewById(R.id.bt_submit);
 
 
+
         getdatauser();
 
         bt_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (et_username.getText().toString().equals("admin") &&
-                        et_password.getText().toString().equals("123")) {
+                if (et_username.getText().toString().equals("admin") && et_password.getText().toString().equals("123")) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
                     builder.setIcon(R.drawable.ic_check);
                     builder.setTitle("Đăng nhập thành công");
@@ -59,7 +61,9 @@ public class LoginActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(getApplicationContext(), "Sai tên đăng nhập hoặc mật khẩu", Toast.LENGTH_SHORT).show();
                 }
+                startActivity(new Intent(LoginActivity.this,HomeActivity.class));
             }
+
         });
     }
 
