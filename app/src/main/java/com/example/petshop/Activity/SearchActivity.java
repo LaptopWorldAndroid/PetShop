@@ -97,7 +97,8 @@ public class SearchActivity extends AppCompatActivity {
                                         document.getData().get("description").toString(),
                                         document.getData().get("imgUrl").toString(),
                                         Integer.valueOf(document.getData().get("stock").toString()),
-                                        Integer.valueOf(document.getData().get("unitPrice").toString())
+                                        Integer.valueOf(document.getData().get("unitPrice").toString()),
+                                        1
                                 );
                                 Log.d("22222", document.getData().toString());
                             }

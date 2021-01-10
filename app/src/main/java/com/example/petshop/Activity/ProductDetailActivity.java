@@ -42,11 +42,10 @@ public class ProductDetailActivity extends AppCompatActivity {
     TextView txtName, txtPrice, txtsoluong, txtmota;
     Button btnAddCart;
     ImageView cart;
+    Button btnAddToCart;
     ProductDetailAdapter productDetailAdapter;
 
     Product product;
-
-
 
     private Object Tag;
     String productName;
@@ -60,35 +59,39 @@ public class ProductDetailActivity extends AppCompatActivity {
         getIntent();
         linkViews();
 
-        Intent intent = getIntent();
+        //Intent intent = getIntent();
 
-        Bundle bundle = intent.getBundleExtra("BUNDLE");
+        //Bundle bundle = intent.getBundleExtra("BUNDLE");
 
-//        productName = (String) bundle.getString("productName","");
+        //productName = (String) bundle.getString("productName","");
 
-    getDataIntent();
+        getDataIntent();
 
         //getData();
-
-
+        addEvents();
     }
 
     private void getDataIntent() {
         Bundle bundle = getIntent().getExtras();
         product = new Product();
         product = (Product) bundle.getSerializable("Object");
+        product.setCounter(1);
 
         Picasso.get().load(product.getImgUrl()).into(img);
         txtName.setText(String.valueOf(product.getNameProduct()));
-        txtPrice.setText(String.valueOf(product.getUnitPrice()));
+
+        Integer price = (int) product.getUnitPrice();
+
+        String str = String.format("%,d", price);
+
+        txtPrice.setText(str + " vnđ");
+
         txtmota.setText(String.valueOf(product.getDescription()));
-        txtsoluong.setText("Số lượng: " + String.valueOf(product.getStock()));
 
+        String counter = String.valueOf((int)product.getStock());
+
+        txtsoluong.setText("Số lượng: " + counter);
     }
-
-
-
-
 
     private void getDataProduct(String name) {
         db.collection("product")
@@ -106,16 +109,23 @@ public class ProductDetailActivity extends AppCompatActivity {
                                         document.getData().get("description").toString(),
                                         document.getData().get("imgUrl").toString(),
                                         Integer.valueOf(document.getData().get("stock").toString()),
-                                        Integer.valueOf(document.getData().get("unitPrice").toString())
+                                        Integer.valueOf(document.getData().get("unitPrice").toString()),
+                                        1
                                 );
                                 Log.d("22222", document.getData().toString());
                             }
                             Picasso.get().load(product.getImgUrl()).into(img);
                             Log.d("DATA", String.valueOf(product));
                             txtName.setText(String.valueOf(product.getNameProduct()));
-                            txtPrice.setText(String.valueOf(product.getUnitPrice()));
+
+                            String price = String.valueOf(product.getUnitPrice());
+
+                            txtPrice.setText(price + " vnđ");
                             txtmota.setText(String.valueOf(product.getDescription()));
-                            txtsoluong.setText("      Số lượng: " + String.valueOf(product.getStock()));
+
+                            String counter = String.valueOf(Integer.valueOf(product.getCounter()));
+
+                            txtsoluong.setText("Số lượng kho: " + String.valueOf(counter));
 
                         } else {
                             Log.d("TAG", "Error getting documents: ", task.getException());
@@ -137,7 +147,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         txtName = findViewById (R.id.productname);
         txtPrice = findViewById (R.id.productprice);
         txtsoluong = findViewById (R.id.txtsoluong);
-        btnAddCart = findViewById (R.id.btnAddCart);
+        btnAddToCart = findViewById (R.id.btnAddCart);
         backdetail = findViewById (R.id.backdetail);
         txtmota = findViewById (R.id.txtmota);
         cart = findViewById (R.id.cart);
@@ -155,9 +165,31 @@ public class ProductDetailActivity extends AppCompatActivity {
                 }
             }
         });
+
+        btnAddToCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ProductDetailActivity.this, ShoppingCartActivity.class);
+
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("cartItem", product);
+
+                intent.putExtra("BUNDLE", bundle);
+
+                startActivity(intent);
+            }
+        });
     }
     private void initFakeData() {
 
+    }
+
+    public String substring(int beginIndex, int subLen, String value) {
+        String s = value;
+
+        s.substring(beginIndex, subLen);
+
+        return s;
     }
 
 }

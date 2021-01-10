@@ -7,11 +7,10 @@ public class Product implements Serializable {
     private String nameProduct;
     private String description;
     private String imgUrl;
-    private float stock;
+    private int stock;
     private float unitPrice;
 
-    private String count;
-
+    private Integer counter;
 
     public Product() {}
 
@@ -20,24 +19,25 @@ public class Product implements Serializable {
 
     }
 
-    public Product(String idProduct, String nameProduct, String description, String imgUrl, float stock, float unitPrice) {
+    public Product(String idProduct, String nameProduct, String description, String imgUrl, int stock, float unitPrice, Integer counter) {
         this.idProduct = idProduct;
         this.nameProduct = nameProduct;
         this.description = description;
         this.imgUrl = imgUrl;
         this.stock = stock;
         this.unitPrice = unitPrice;
+        this.counter = counter;
     }
 
-    public Product(String idProduct, String nameProduct, String description, String imgUrl, float stock, float unitPrice,String count) {
-        this.idProduct = idProduct;
-        this.nameProduct = nameProduct;
-        this.description = description;
-        this.imgUrl = imgUrl;
-        this.stock = stock;
-        this.unitPrice = unitPrice;
-        this.count = count;
-    }
+//    public Product(String idProduct, String nameProduct, String description, String imgUrl, int stock, float unitPrice, Integer counter) {
+//        this.idProduct = idProduct;
+//        this.nameProduct = nameProduct;
+//        this.description = description;
+//        this.imgUrl = imgUrl;
+//        this.stock = stock;
+//        this.unitPrice = unitPrice;
+//        this.counter = counter;
+//    }
 
 
     public String getIdProduct() {
@@ -76,7 +76,7 @@ public class Product implements Serializable {
         return stock;
     }
 
-    public void setStock(float stock) {
+    public void setStock(int stock) {
         this.stock = stock;
     }
 
@@ -88,11 +88,11 @@ public class Product implements Serializable {
         this.unitPrice = unitPrice;
     }
 
-    public String getCount() {
-        return count;
+    public Integer getCounter() {
+        return counter;
     }
 
-    public void setCount(String count) {
-        this.count = count;
+    public void setCounter(Integer counter) {
+        this.counter = counter;
     }
 }
