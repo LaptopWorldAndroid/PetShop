@@ -12,13 +12,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.manager.SupportRequestManagerFragment;
+import com.example.petshop.Activity.LoginActivity;
 import com.example.petshop.Activity.ProfileEditActivity;
 import com.example.petshop.R;
 
 public class AccountFragment extends Fragment {
 
     private View viewRoot;
-    LinearLayout layoutUpdate;
+    LinearLayout layoutUpdate,layoutLogout;
     TextView txtName, txtEmail;
 
     @Override
@@ -43,11 +45,25 @@ public class AccountFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        layoutLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
+                getActivity().finish();
+            }
+        });
     }
+
+
 
     private void Init() {
         txtName = viewRoot.findViewById(R.id.txtName);
         txtEmail = viewRoot.findViewById(R.id.txtEmail);
         layoutUpdate = viewRoot.findViewById(R.id.layoutUpdate);
+        layoutLogout = viewRoot.findViewById(R.id.layoutLogout);
+
     }
+
 }
