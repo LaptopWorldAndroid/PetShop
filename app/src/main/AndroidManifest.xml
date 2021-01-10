@@ -19,6 +19,7 @@
         <activity android:name=".Activity.ListProductActivity" />
         <activity android:name=".Activity.ShoppingCartActivity" />
         <activity android:name=".Activity.HomeActivity">
+
         </activity>
         <activity android:name=".Activity.RegisterActivity" >
 
