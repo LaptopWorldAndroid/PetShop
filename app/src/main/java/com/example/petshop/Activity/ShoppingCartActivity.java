@@ -49,11 +49,11 @@ public class ShoppingCartActivity extends AppCompatActivity implements CartItems
         getData();
         //createProductList();
 
-        cartItemsAdapter = new CartItemsAdapter(this, products, this);
-        rcvCartItems.setLayoutManager(new LinearLayoutManager(this));
-        rcvCartItems.setAdapter(cartItemsAdapter);
-
-        //calcTotalMoney();
+        if(products.size() > 0){
+            cartItemsAdapter = new CartItemsAdapter(this, products, this);
+            rcvCartItems.setLayoutManager(new LinearLayoutManager(this));
+            rcvCartItems.setAdapter(cartItemsAdapter);
+        }
 
         linkViews();
         addEvents();
@@ -63,11 +63,11 @@ public class ShoppingCartActivity extends AppCompatActivity implements CartItems
         Intent intent = getIntent();
 
         Bundle bundle = intent.getBundleExtra("BUNDLE");
-        product = (Product)bundle.getSerializable("cartItem");
 
-        Log.d("TAG", String.valueOf(product));
-
-        products.add(product);
+        if(bundle != null){
+            product = (Product)bundle.getSerializable("cartItem");
+            products.add(product);
+        }
     }
 
     private void addEvents() {
@@ -105,33 +105,7 @@ public class ShoppingCartActivity extends AppCompatActivity implements CartItems
         btnCloseCart = findViewById(R.id.btnCloseCart);
     }
 
-//    private void createProductList() {
-//        products.add(new Product(
-//                "prd1",
-//                "Thức ăn cho chó 1",
-//                "description...",
-//                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPCUUjJ9AMuVvtDLPo3EY3J_C6Dgf9ixS7riY_BgEB4R67BuBOaljbb3HnJw&usqp=CAc",
-//                123,
-//                123456,
-//                1));
-//        products.add(new Product(
-//                "prd2",
-//                "Thức ăn cho chó 2",
-//                "description...",
-//                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPCUUjJ9AMuVvtDLPo3EY3J_C6Dgf9ixS7riY_BgEB4R67BuBOaljbb3HnJw&usqp=CAc",
-//                123,
-//                123456,
-//                1));
-//        products.add(new Product(
-//                "prd2",
-//                "Thức ăn cho chó 2",
-//                "description...",
-//                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPCUUjJ9AMuVvtDLPo3EY3J_C6Dgf9ixS7riY_BgEB4R67BuBOaljbb3HnJw&usqp=CAc",
-//                123,
-//                123456,
-//                1
-//                ));
-//    }
+
 
     public void calcTotalMoney(){
         double total = 0;
@@ -150,7 +124,9 @@ public class ShoppingCartActivity extends AppCompatActivity implements CartItems
     @Override
     protected void onResume() {
         super.onResume();
-        calcTotalMoney();
+        if(products.size() > 0){
+            calcTotalMoney();
+        }
     }
 
     @Override
