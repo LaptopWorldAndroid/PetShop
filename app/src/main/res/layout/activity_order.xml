@@ -21,6 +21,7 @@
             android:paddingRight="15dp">
 
             <ImageButton
+                android:id="@+id/btnCloseOrder"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -68,6 +69,7 @@
         </LinearLayout>
 
         <Button
+            android:id="@+id/btnInsertOrder"
             android:layout_gravity="center"
             android:layout_height="match_parent"
             android:layout_margin="10dp"

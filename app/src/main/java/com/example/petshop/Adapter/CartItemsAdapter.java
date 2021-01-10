@@ -47,9 +47,16 @@ public class CartItemsAdapter extends RecyclerView.Adapter<CartItemsAdapter.View
         Picasso.get().load(product.getImgUrl()).into(holder.imageCart);
 
         holder.cartItemName.setText(product.getNameProduct());
-        holder.cartItemPrice.setText(String.valueOf(product.getUnitPrice()));
-        holder.cartItemCounter.setText(String.valueOf(product.getCount()));
 
+        Integer price = (int)product.getUnitPrice();
+
+        String str = String.format("%,d", price);
+
+        holder.cartItemPrice.setText(str + " vnđ");
+
+        String counter = String.valueOf(product.getCounter());
+
+        holder.cartItemCounter.setText(counter);
     }
 
     @Override
@@ -93,5 +100,13 @@ public class CartItemsAdapter extends RecyclerView.Adapter<CartItemsAdapter.View
     public interface ItemClickListener {
         void onClickIncrease(View view, int position);
         void onClickDecrease(View view, int position);
+    }
+
+    public String substring(int beginIndex, int subLen, String value) {
+        String s = value;
+
+        s.substring(beginIndex, subLen);
+
+        return s;
     }
 }

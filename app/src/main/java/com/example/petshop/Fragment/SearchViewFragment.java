@@ -51,8 +51,6 @@ public class SearchViewFragment extends Fragment {
         return viewRoot;
     }
 
-
-
 //    private void search(String s){
 //        ArrayList<Product>mylist=new ArrayList<>();
 //

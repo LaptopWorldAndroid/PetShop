@@ -11,6 +11,7 @@
         android:theme="@style/Theme.PetShop">
 
         <activity android:name=".Activity.ProductDetailActivity"></activity>
+        <activity android:name=".Activity.SearchActivity"></activity>
 
         <activity android:name=".Activity.OrderActivity"></activity>
 
@@ -19,18 +20,22 @@
         <activity android:name=".Activity.ListProductActivity" />
         <activity android:name=".Activity.ShoppingCartActivity" />
         <activity android:name=".Activity.HomeActivity">
+<<<<<<< HEAD
 
+=======
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+>>>>>>> ebc5a3a011c88200d5aea7e0fc0a8a52ac5d5bc3
         </activity>
         <activity android:name=".Activity.RegisterActivity" >
 
         </activity>
         <activity android:name=".Activity.LoginActivity" >
             >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".Activity.CategoryActivity" />
         <activity android:name=".Activity.MainActivity" />
