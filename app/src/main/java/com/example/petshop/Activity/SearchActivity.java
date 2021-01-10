@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
@@ -36,18 +35,14 @@ import java.util.ArrayList;
 
 import javax.annotation.Nullable;
 
-public class ProductDetailActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity {
     ScrollView prddetal;
-    ImageView img, backdetail;
+    ImageView img;
     TextView txtName, txtPrice, txtsoluong, txtmota;
     Button btnAddCart;
     ImageView cart;
     ProductDetailAdapter productDetailAdapter;
-
     Product product;
-
-
-
     private Object Tag;
     String productName;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -64,30 +59,26 @@ public class ProductDetailActivity extends AppCompatActivity {
 
         Bundle bundle = intent.getBundleExtra("BUNDLE");
 
-//        productName = (String) bundle.getString("productName","");
+        productName = (String) bundle.getString("productName","");
 
-    getDataIntent();
+     //   getDataIntent();
 
-        //getData();
+        getData();
 
 
     }
 
-    private void getDataIntent() {
-        Bundle bundle = getIntent().getExtras();
-        product = new Product();
-        product = (Product) bundle.getSerializable("Object");
-
-        Picasso.get().load(product.getImgUrl()).into(img);
-        txtName.setText(String.valueOf(product.getNameProduct()));
-        txtPrice.setText(String.valueOf(product.getUnitPrice()));
-        txtmota.setText(String.valueOf(product.getDescription()));
-        txtsoluong.setText("Số lượng: " + String.valueOf(product.getStock()));
-
-    }
-
-
-
+//    private void getDataIntent() {
+//        Bundle bundle = getIntent().getExtras();
+//        product = new Product();
+//        product = (Product) bundle.getSerializable("Object");
+//
+//        Picasso.get().load(product.getImgUrl()).into(img);
+//        txtName.setText(String.valueOf(product.getNameProduct()));
+//        txtPrice.setText(String.valueOf(product.getUnitPrice()));
+//        txtmota.setText(String.valueOf(product.getDescription()));
+//        txtsoluong.setText("Số lượng: " + String.valueOf(product.getStock()));
+//    }
 
 
     private void getDataProduct(String name) {
@@ -127,37 +118,22 @@ public class ProductDetailActivity extends AppCompatActivity {
     }
 
 
-    private void getData() {
-        getDataProduct(productName);
-    }
-
-
     public void linkViews() {
-        img = findViewById (R.id.bigImg);
-        txtName = findViewById (R.id.productname);
-        txtPrice = findViewById (R.id.productprice);
-        txtsoluong = findViewById (R.id.txtsoluong);
-        btnAddCart = findViewById (R.id.btnAddCart);
-        backdetail = findViewById (R.id.backdetail);
-        txtmota = findViewById (R.id.txtmota);
-        cart = findViewById (R.id.cart);
+        img = findViewById(R.id.bigImg);
+        txtName = findViewById(R.id.productname);
+        txtPrice = findViewById(R.id.productprice);
+        txtsoluong = findViewById(R.id.txtsoluong);
+        btnAddCart = findViewById(R.id.btnAddCart);
+        txtmota = findViewById(R.id.txtmota);
+        cart = findViewById(R.id.cart);
     }
 
-    private void addEvents() {
-        backdetail.setOnClickListener (new View.OnClickListener () {
-            @Override
-            public void onClick(View v) {
-                if (backdetail.getBaseline () == View.VISIBLE) {
-                    backdetail.setVisibility (View.INVISIBLE); //or GONE
 
-                } else {
-                    finish ();
-                }
-            }
-        });
-    }
-    private void initFakeData() {
+    private void getData() {
+
+        getDataProduct(productName);
 
     }
+
 
 }

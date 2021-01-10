@@ -96,6 +96,7 @@ public class SearchViewFragment extends Fragment {
                                             doc.get("name").toString()
                                     ));
 
+
                                 //adapter.notifyDataSetChanged();
 
                                     

@@ -13,6 +13,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.example.petshop.Class.Category;
 import com.example.petshop.Class.Product;
 import com.example.petshop.R;
 import com.squareup.picasso.Picasso;
@@ -20,10 +21,11 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-
+    private Context mContext;
     ArrayList<Product> list;
-    public SearchAdapter(ArrayList<Product> list){
+    public SearchAdapter( Context mContext, ArrayList<Product> list){
         this.list=list;
+        this.mContext=mContext;
         //  this.context=context;
     }
 
@@ -35,11 +37,9 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder,final int position) {
-        holder.itemView.setTag(list.get(position));
+
         holder.itemView.findViewById(R.id.tvProductName);
-        holder.itemView.findViewById(R.id.tvQuantity);
-        holder.itemView.findViewById(R.id.tvPrice);
-        Picasso.get().load(list.get(position).getImgUrl()).into((ImageView) holder.itemView.findViewById(R.id.imvProduct));
+
 
     }
 
@@ -55,9 +55,7 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             tvProductName=itemView.findViewById(R.id.tvProductName);
-            imgProduct=itemView.findViewById(R.id.imvProduct);
-            tvPrice=itemView.findViewById(R.id.tvPrice);
-            tvQuantity=itemView.findViewById(R.id.tvQuantity);
+
         }
     }
 }
