@@ -60,10 +60,14 @@ public class ProductAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        Product Product = listProducts.get(position);
-        Picasso.get().load(Product.getImgUrl ()).into(holder.imvPhoto);
-        holder.txtName.setText(Product.getNameProduct ());
-        holder.txtPrice.setText(String.valueOf(Product.getUnitPrice ()) + " VND");
+        Product product = listProducts.get(position);
+        Picasso.get().load(product.getImgUrl ()).into(holder.imvPhoto);
+        holder.txtName.setText(product.getNameProduct ());
+
+        Integer price = (int)product.getUnitPrice();
+        String str = String.format("%,d", price);
+
+        holder.txtPrice.setText(str + " VND");
 
         return convertView;
     }

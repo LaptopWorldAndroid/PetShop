@@ -22,6 +22,7 @@
             android:paddingRight="15dp">
 
             <ImageButton
+                android:id="@+id/btnCloseCart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -30,10 +31,11 @@
                 android:src="@drawable/ic_baseline_close_24" />
 
             <TextView
+                android:id="@+id/txtCart"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="Giỏ hàng (1)"
+                android:text="Giỏ hàng"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
 

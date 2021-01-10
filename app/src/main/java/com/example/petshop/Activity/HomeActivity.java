@@ -34,6 +34,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.annotation.Nullable;
 
@@ -84,13 +85,20 @@ public class HomeActivity extends AppCompatActivity {
 
 
 
-
         autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(HomeActivity.this,
-                        adapter.getItem(position),
-                        Toast.LENGTH_SHORT).show();
+//                parent.getItemAtPosition(position);
+                Intent intent = new Intent(HomeActivity.this, SearchActivity.class);
+                String productName = parent.getItemAtPosition(position).toString();
+
+                Bundle bundle = new Bundle();
+
+                bundle.putString("productName", productName);
+                intent.putExtra("BUNDLE", bundle);
+
+                startActivity(intent);
+
             }
         });
 
@@ -106,6 +114,8 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
     }
+
+
 
     private void getData() {
         db = FirebaseFirestore.getInstance();

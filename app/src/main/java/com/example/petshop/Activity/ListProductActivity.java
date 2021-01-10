@@ -78,7 +78,8 @@ public class ListProductActivity extends AppCompatActivity {
                                     doc.get ("description").toString (),
                                     doc.get ("imgUrl").toString (),
                                     Integer.valueOf (doc.get ("stock").toString ()),
-                                    Integer.valueOf (doc.get ("unitPrice").toString ())
+                                    Integer.valueOf (doc.get ("unitPrice").toString ()),
+                                    1
                             ));
                             productAdapter.notifyDataSetChanged ();
                         }

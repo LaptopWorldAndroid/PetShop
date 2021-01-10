@@ -44,8 +44,13 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         Picasso.get().load(product.getImgUrl()).into(holder.imageCart);
 
         holder.cartItemName.setText(product.getNameProduct());
-        holder.cartItemPrice.setText(String.valueOf(product.getUnitPrice()));
-        holder.cartItemCounter.setText(String.valueOf(product.getCount()));
+
+        Integer price = (int)product.getUnitPrice();
+
+        String str = String.format("%,d", price);
+
+        holder.cartItemPrice.setText(String.valueOf(str + " vnđ"));
+        holder.cartItemCounter.setText("Số lượng: " + String.valueOf(product.getCounter()));
     }
 
     @Override
