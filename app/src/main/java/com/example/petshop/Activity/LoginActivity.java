@@ -98,6 +98,8 @@ public class LoginActivity extends AppCompatActivity {
                 .whereEqualTo("username", username)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+
+
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
@@ -111,21 +113,18 @@ public class LoginActivity extends AppCompatActivity {
                                     editor.putString("idUser", document.getId());
 
                                     editor.commit();
-
+                                    Toast.makeText (LoginActivity.this, "Success", Toast.LENGTH_SHORT).show ();
                                     startActivity(new Intent(LoginActivity.this, HomeActivity.class));
 
-                                    break;
-                                } else {
-                                    Toast.makeText(getApplicationContext(), "Sai tên đăng nhập hoặc mật khẩu", Toast.LENGTH_SHORT).show();
-                                    break;
+                                }
                                 }
                             }
 
-                        } else {
-                            Log.d("DATA FAIL", "Error getting documents: ", task.getException());
-                        }
-                    }
-                });
-    }
 
-}
+//                        } else {
+//                            Log.d("DATA FAIL", "Error getting documents: ", task.getException());
+
+                        }
+                    });
+                }
+    }
