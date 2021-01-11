@@ -42,8 +42,6 @@ public class LoginActivity extends AppCompatActivity {
     public static final String Name = "nameKey";
     public static final String Password = "passwordKey";
     SharedPreferences sharedpreferences;
-    Map<String, String> data;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,17 +60,14 @@ public class LoginActivity extends AppCompatActivity {
                                              startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
                                          }
                                      }
-
         );
     }
 
     private void handleLogin() {
-
         bt_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(LoginActivity.this, user.getDisplayName(), Toast.LENGTH_SHORT).show();
-               getdatauser();
+                getdatauser();
             }
         });
     }
@@ -98,7 +93,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void getdatauser() {
-        String username=et_username.getText().toString();
+        String username = et_username.getText().toString();
         db.collection("customer")
                 .whereEqualTo("username", username)
                 .get()
@@ -107,14 +102,8 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                Toast.makeText(LoginActivity.this, et_username.getText()+" "+et_password.getText(), Toast.LENGTH_SHORT).show();
-                                Toast.makeText(LoginActivity.this, " PASS"+document.getData().get("username").toString()+"  "+document.getData().get("password").toString(), Toast.LENGTH_SHORT).show();
-
-                                if (et_username.getText().toString().equals( document.getData().get("username").toString())
-                                        && et_password.getText().toString().equals( document.getData().get("password").toString())) {
-                                    Toast.makeText(LoginActivity.this, document.getData().get("username").toString()+"  "+document.getData().get("password").toString(), Toast.LENGTH_SHORT).show();
-                                    String username = et_username.getText().toString();
-                                    String password = et_password.getText().toString();
+                                if (et_username.getText().toString().equals(document.getData().get("username").toString())
+                                        && et_password.getText().toString().equals(document.getData().get("password").toString())) {
 
                                     SharedPreferences.Editor editor = sharedpreferences.edit();
 
@@ -123,29 +112,8 @@ public class LoginActivity extends AppCompatActivity {
 
                                     editor.commit();
 
-                                    String usernameSession = sharedpreferences.getString(Name, "failed");
-                                    String passwordSession = sharedpreferences.getString(Password, "failed");
-                                    Toast.makeText(LoginActivity.this, "SUCCESS", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(LoginActivity.this, HomeActivity.class));
 
-                                    bt_submit.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            startActivity(new Intent(LoginActivity.this,HomeActivity.class));
-                                        }
-                                    });
-//                                    AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-//                                    builder.setIcon(R.drawable.ic_check);
-//                                    builder.setTitle(usernameSession);
-//                                    builder.setMessage(passwordSession);
-//                                    builder.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
-//                                        @Override
-//                                        public void onClick(DialogInterface dialog, int which) {
-//                                            dialog.cancel();
-//                                        }
-//                                    });
-//
-//                                    AlertDialog alertDialog = builder.create();
-//                                    alertDialog.show();
                                     break;
                                 } else {
                                     Toast.makeText(getApplicationContext(), "Sai tên đăng nhập hoặc mật khẩu", Toast.LENGTH_SHORT).show();

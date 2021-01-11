@@ -6,20 +6,27 @@
     android:orientation="vertical"
     tools:context=".Fragment.AccountFragment">
     <LinearLayout
-        android:padding="10dp"
-        android:background="@color/primary"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:layout_height="40dp"
+        android:background="@color/primary_color"
+        android:paddingRight="15dp">
 
-        <TextView
+        <ImageButton
+            android:id="@+id/btnCloseEdit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:background="@color/lightPink"
+            android:src="@drawable/ic_baseline_close_24" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
             android:text="Cập nhật thông tin"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white"
+            android:textSize="20sp" />
     </LinearLayout>
 
     <LinearLayout
