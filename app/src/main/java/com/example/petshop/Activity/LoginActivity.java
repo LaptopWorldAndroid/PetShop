@@ -29,17 +29,19 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class LoginActivity extends AppCompatActivity {
     EditText et_username, et_password;
     Button bt_submit;
     TextView tv_signup;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-    public static final String MyPREFERENCES = "MyPrefs" ;
+    Customer user = new Customer();
+    public static final String MyPREFERENCES = "MyPrefs";
     public static final String Name = "nameKey";
     public static final String Password = "passwordKey";
     SharedPreferences sharedpreferences;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,60 +52,25 @@ public class LoginActivity extends AppCompatActivity {
         et_username = findViewById(R.id.et_username);
         et_password = findViewById(R.id.et_password);
         bt_submit = findViewById(R.id.bt_submit);
-
-        getdatauser();
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-
-        bt_submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (et_username.getText().toString().equals("admin") && et_password.getText().toString().equals("123")) {
-                    String username  = et_username.getText().toString();
-                    String password  = et_password.getText().toString();
-
-                    SharedPreferences.Editor editor = sharedpreferences.edit();
-
-                    editor.putString(Name, username);
-                    editor.putString(Password, password);
-
-
-                    editor.commit();
-
-                    String usernameSession = sharedpreferences.getString(Name, "failed");
-                    String passwordSession = sharedpreferences.getString(Password, "failed");
-
-                    AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-                    builder.setIcon(R.drawable.ic_check);
-                    builder.setTitle(usernameSession);
-                    builder.setMessage(passwordSession);
-                    builder.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
-                        }
-                    });
-
-                    AlertDialog alertDialog = builder.create();
-                    alertDialog.show();
-                } else {
-                    Toast.makeText(getApplicationContext(), "Sai tên đăng nhập hoặc mật khẩu", Toast.LENGTH_SHORT).show();
-                }
-                //startActivity(new Intent(LoginActivity.this,HomeActivity.class));
-            }
-
-        });
+        handleLogin();
         tv_signup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this,RegisterActivity.class));
-            }
-        }
-
+                                         @Override
+                                         public void onClick(View v) {
+                                             startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+                                         }
+                                     }
         );
     }
 
-
+    private void handleLogin() {
+        bt_submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getdatauser();
+            }
+        });
+    }
 
 
     public class Session {
@@ -120,23 +87,45 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         public String getusename() {
-            String usename = prefs.getString("usename","");
+            String usename = prefs.getString("usename", "");
             return usename;
         }
     }
 
-    private void getdatauser() {
-
-        db.getInstance().collection("customer")
-                .whereEqualTo("username", "admin")
+    public void getdatauser() {
+        String username = et_username.getText().toString();
+        db.collection("customer")
+                .whereEqualTo("username", username)
                 .get()
-                .addOnCompleteListener(task -> {
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                if (et_username.getText().toString().equals(document.getData().get("username").toString())
+                                        && et_password.getText().toString().equals(document.getData().get("password").toString())) {
 
-                    Log.d("Logging65", "Data: " + task.getResult());
+                                    SharedPreferences.Editor editor = sharedpreferences.edit();
 
+                                    editor.putString("displayName", document.getData().get("displayName").toString());
+                                    editor.putString("idUser", document.getId());
 
+                                    editor.commit();
+
+                                    startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+
+                                    break;
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "Sai tên đăng nhập hoặc mật khẩu", Toast.LENGTH_SHORT).show();
+                                    break;
+                                }
+                            }
+
+                        } else {
+                            Log.d("DATA FAIL", "Error getting documents: ", task.getException());
+                        }
+                    }
                 });
-
     }
 
 }
