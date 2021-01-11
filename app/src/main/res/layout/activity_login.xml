@@ -55,6 +55,7 @@
 
             android:id="@+id/et_password"
             android:hint="Mật Khẩu"
+            android:inputType="textPassword"
             android:textColor="@android:color/white"
             android:textColorHint="@android:color/white"
             android:background="@android:color/transparent"/>

@@ -19,7 +19,13 @@ public class Product implements Serializable {
 
     }
 
-    public Product(String idProduct, String nameProduct, String description, String imgUrl, int stock, float unitPrice, Integer counter) {
+//    public Product(String idProduct, String nameProduct, String imgUrl) {
+//        this.idProduct = idProduct;
+//        this.nameProduct = nameProduct;
+//        this.imgUrl = imgUrl;
+//    }
+
+    public Product(String idProduct, String nameProduct, String description, String imgUrl, int stock, float unitPrice, int counter) {
         this.idProduct = idProduct;
         this.nameProduct = nameProduct;
         this.description = description;
