@@ -1,5 +1,6 @@
 package com.example.petshop.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,8 +18,13 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import com.example.petshop.Activity.HomeActivity;
+import com.example.petshop.Activity.ListProductActivity;
+import com.example.petshop.Activity.ProductDetailActivity;
 import com.example.petshop.Adapter.CategoryAdapter;
+import com.example.petshop.Adapter.HotProductAdapter;
 import com.example.petshop.Adapter.NavigationAdapter;
+import com.example.petshop.Adapter.ProductAdapter;
 import com.example.petshop.Adapter.ProductInCategoryAdapter;
 import com.example.petshop.Class.Category;
 import com.example.petshop.Class.Product;
@@ -34,12 +40,18 @@ import java.util.ArrayList;
 import javax.annotation.Nullable;
 
 
-public class HomeFragment extends Fragment implements CategoryAdapter.ItemClickListener {
+public class HomeFragment extends Fragment implements CategoryAdapter.ItemClickListener, HotProductAdapter.ItemClickListener {
     private View viewRoot;
-    private RecyclerView homeCategoryRcv;
+
+    private RecyclerView homeCategoryRcv, homeProductRcv;
     private ArrayList<Category> listCategory = new ArrayList<>();
     private Category category;
     private CategoryAdapter adapter = null;
+
+
+    private ArrayList<Product> productArrayList = new ArrayList<>();
+    private Product product;
+    private HotProductAdapter productAdapter = null;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -72,22 +84,56 @@ public class HomeFragment extends Fragment implements CategoryAdapter.ItemClickL
                 });
     }
 
+    public void getDataProduct() {
+        db = FirebaseFirestore.getInstance();
+        db.collection("product")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value,
+                                        @Nullable FirebaseFirestoreException e) {
+                        if (e != null) {
+                            Log.w("Fail", "Listen failed.", e);
+                            return;
+                        }
+                        for (QueryDocumentSnapshot doc : value) {
+                            productArrayList.add(new Product(doc.getId().toString(),
+                                    doc.get("name").toString(),
+                                    doc.get("description").toString(),
+                                    doc.get("imgUrl").toString(),
+                                    Integer.parseInt(doc.get("stock").toString()),
+                                    Float.parseFloat(doc.get("unitPrice").toString()),
+                                    Integer.parseInt( doc.get("counter").toString())));
+                            adapter.notifyDataSetChanged();
+                        }
+                        Log.d("TAG", "Current cites in CA: ");
+                    }
+                });
+    }
+
     private void Init() {
         homeCategoryRcv = (RecyclerView) viewRoot.findViewById(R.id.homeCategoryRcv);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        layoutManager.setOrientation(RecyclerView.HORIZONTAL);
+        LinearLayoutManager layoutManager1 = new LinearLayoutManager(getContext());
+        layoutManager1.setOrientation(RecyclerView.HORIZONTAL);
         getDataCategory();
         Log.d("hehe", String.valueOf(listCategory.size()));
         adapter = new CategoryAdapter(getContext(), this, listCategory);
-        homeCategoryRcv.setLayoutManager(layoutManager);
+        homeCategoryRcv.setLayoutManager(layoutManager1);
         homeCategoryRcv.setAdapter(adapter);
+
+        homeProductRcv = (RecyclerView) viewRoot.findViewById(R.id.homeProductRcv);
+        LinearLayoutManager layoutManager2 = new LinearLayoutManager(getContext());
+        layoutManager2.setOrientation(RecyclerView.HORIZONTAL);
+        getDataProduct();
+//        Log.d("hehe", String.valueOf(listCategory.size()));
+        productAdapter = new HotProductAdapter(getContext(), this::onProductClick, productArrayList);
+        homeProductRcv.setLayoutManager(layoutManager2);
+        homeProductRcv.setAdapter(productAdapter);
 
     }
 
     @Override
     public void onClick(View v, Category category, String idCategory) {
-        //Toast.makeText(getContext(), category.getNameCategory(), Toast.LENGTH_SHORT).show();
-            Toast.makeText(getContext(), category.getNameCategory(), Toast.LENGTH_SHORT).show();
+
         }
 
     @NonNull
@@ -105,4 +151,13 @@ public class HomeFragment extends Fragment implements CategoryAdapter.ItemClickL
     }
 
 
+    @Override
+    public void onProductClick(View v, Product product, String idProduct) {
+        Intent intent=new Intent(getActivity(),ProductDetailActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable ("Object", product);
+        intent.putExtras(bundle);
+        startActivity (intent);
+
+    }
 }
