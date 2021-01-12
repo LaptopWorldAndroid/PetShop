@@ -55,7 +55,14 @@ public class CategoryFragment extends Fragment implements CategoryAdapter.ItemCl
         viewRoot = inflater.inflate(R.layout.fragment_category, container, false);
 
         Init();
+
         return viewRoot;
+    }
+
+    @Override
+    public void onResume() {
+        getFullChildCategory();
+        super.onResume();
     }
 
     public void getDataCategory() {
@@ -106,6 +113,32 @@ public class CategoryFragment extends Fragment implements CategoryAdapter.ItemCl
                 });
     }
 
+    public void getFullChildCategory() {
+        db = FirebaseFirestore.getInstance();
+        db.collection("childCategory")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value,
+                                        @Nullable FirebaseFirestoreException e) {
+                        if (e != null) {
+                            Log.w("Fail", "Listen failed.", e);
+                            return;
+                        }
+                        listChild.clear();
+                        for (QueryDocumentSnapshot doc : value) {
+
+                            listChild.add(new ChildCategory(
+                                    doc.getId(),
+                                    doc.get("childCategoryName").toString(),
+                                    doc.get("imgChildCategory").toString(),
+                                    doc.get("parentCatId").toString()
+                            ));
+                            adapterChild.notifyDataSetChanged();
+                        }
+                    }
+                });
+    }
+
     private void Init() {
         rvcCategory = (RecyclerView) viewRoot.findViewById(R.id.rcwCategory);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -118,14 +151,14 @@ public class CategoryFragment extends Fragment implements CategoryAdapter.ItemCl
         gvProduct = (GridView) viewRoot.findViewById(R.id.grvProduct);
         adapterChild = new ProductInCategoryAdapter(getContext(), R.layout.item_category_gridview, listChild);
         gvProduct.setAdapter(adapterChild);
-        gvProduct.setOnItemClickListener (new AdapterView.OnItemClickListener () {
+        gvProduct.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent (getActivity(), ListProductActivity.class);
+                Intent intent = new Intent(getActivity(), ListProductActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putString ("IdChild",listChild.get(position).getIdChildCategory ());
+                bundle.putString("IdChild", listChild.get(position).getIdChildCategory());
                 intent.putExtras(bundle);
-                startActivity (intent);
+                startActivity(intent);
             }
         });
     }
