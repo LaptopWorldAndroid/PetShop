@@ -9,30 +9,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PetShop">
-
-        <activity android:name=".Activity.ProductDetailActivity"></activity>
-        <activity android:name=".Activity.SearchActivity"></activity>
-
-        <activity android:name=".Activity.OrderActivity"></activity>
-
-        <activity android:name=".Activity.ProfileEditActivity"></activity>
-
-        <activity android:name=".Activity.ListProductActivity" />
-        <activity android:name=".Activity.ShoppingCartActivity" />
-        <activity android:name=".Activity.HomeActivity">
-
+        <activity android:name=".Activity.SplashActivity"  android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".Activity.ProductDetailActivity" />
+        <activity android:name=".Activity.SearchActivity" />
+        <activity android:name=".Activity.OrderActivity" />
+        <activity android:name=".Activity.ProfileEditActivity" />
+        <activity android:name=".Activity.ListProductActivity" />
+        <activity android:name=".Activity.ShoppingCartActivity" />
+        <activity android:name=".Activity.HomeActivity">
 
         </activity>
-        <activity android:name=".Activity.RegisterActivity" >
-
-        </activity>
-        <activity android:name=".Activity.LoginActivity" >
-            >
+        <activity android:name=".Activity.RegisterActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
+        <activity
+            android:name=".Activity.LoginActivity"
+            android:windowSoftInputMode="adjustResize"
+           >
 
         </activity>
         <activity android:name=".Activity.CategoryActivity" />
