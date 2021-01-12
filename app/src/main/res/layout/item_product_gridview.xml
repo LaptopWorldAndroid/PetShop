@@ -28,6 +28,8 @@
         android:id="@+id/PriProductitem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="#CD2A2A"
         android:layout_below="@id/Productitemname"
         android:layout_marginTop="1dp"
         android:gravity="center"

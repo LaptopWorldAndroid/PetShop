@@ -48,6 +48,12 @@ public class HotProductAdapter extends RecyclerView.Adapter<HotProductAdapter.Vi
         Picasso.get().load(product.getImgUrl()).into(holder.imgProductItem);
 
         holder.txtProduct.setText(product.getNameProduct());
+
+        Integer productUnitPrice = (int)product.getUnitPrice();
+        String str = String.format("%,d", productUnitPrice);
+
+        holder.txtPrice.setText(str + " VND");
+
     }
 
     @Override
@@ -57,12 +63,14 @@ public class HotProductAdapter extends RecyclerView.Adapter<HotProductAdapter.Vi
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView imgProductItem;
-        private TextView txtProduct;
+        private TextView txtProduct, txtPrice;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imgProductItem = itemView.findViewById(R.id.imgProductitem);
             txtProduct = itemView.findViewById(R.id.Productitemname);
+            txtPrice = itemView.findViewById(R.id.PriProductitem);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

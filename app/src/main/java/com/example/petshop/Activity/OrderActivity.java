@@ -90,7 +90,9 @@ public class OrderActivity extends AppCompatActivity {
                                 builder.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        dialog.cancel();
+                                        OrderActivity.this.finish ();
+                                        Intent intent = new Intent (OrderActivity.this, HomeActivity.class);
+                                        startActivity (intent);
                                     }
                                 });
 
