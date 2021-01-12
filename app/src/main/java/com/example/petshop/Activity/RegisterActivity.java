@@ -72,7 +72,6 @@ public class RegisterActivity extends AppCompatActivity {
         bt_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 String Username, Phone, Address, Password, Displayname;
                 Displayname = et_fullname.getText().toString();
                 Phone = et_phone.getText().toString();
@@ -82,7 +81,6 @@ public class RegisterActivity extends AppCompatActivity {
                 user = new Customer(Username, Displayname, Address, Password, Phone);
                 addDocument(user);
 
-                Log.d("USER", user.getDisplayName());
 
                 if (Displayname.isEmpty()) ;
                 {
@@ -100,9 +98,6 @@ public class RegisterActivity extends AppCompatActivity {
                 if (Password.isEmpty()) {
                     Toast.makeText(RegisterActivity.this, "pass", Toast.LENGTH_SHORT).show();
                 }
-                // register the user in firebase
-
-                //  Log.d("REGISTER", "onClick: 123");
             }
         });
 
@@ -124,7 +119,6 @@ public class RegisterActivity extends AppCompatActivity {
         data.put("username", customer.getUsername());
         data.put("phone", customer.getPhone());
 
-        Log.d("AAA", "addDocument: " + data.toString());
         db.collection("customer")
                 .add(data)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {

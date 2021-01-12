@@ -45,27 +45,11 @@ public class SearchViewFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
 
         viewRoot = inflater.inflate(R.layout.fragment_search_view, container, false);
         return viewRoot;
     }
 
-//    private void search(String s){
-//        ArrayList<Product>mylist=new ArrayList<>();
-//
-//        for (Product object: list){
-//            if(object.getNameProduct().toLowerCase().contains(s.toLowerCase()))
-//            {
-//                mylist.add(object);
-//            }
-//
-//        }
-//
-//        SearchAdapter adapter=new SearchAdapter(listProduct);
-//
-//        rcvResultList.setAdapter(adapter);
-//    }
 
     private void Init() {
         autoCompleteTextView = (AutoCompleteTextView) viewRoot.findViewById(R.id.actpSearch);
@@ -95,12 +79,6 @@ public class SearchViewFragment extends Fragment {
                                 listProductName.add(new String(
                                             doc.get("name").toString()
                                     ));
-
-
-                                //adapter.notifyDataSetChanged();
-
-                                    
-
                             }
                         }
                     });
