@@ -30,9 +30,8 @@
         <activity
             android:name=".Activity.LoginActivity"
             android:windowSoftInputMode="adjustResize"
-           >
+           ></activity>
 
-        </activity>
         <activity android:name=".Activity.CategoryActivity" />
         <activity android:name=".Activity.MainActivity" />
     </application>
