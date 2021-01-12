@@ -1,15 +1,9 @@
 package com.example.petshop.Activity;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.drawable.DrawableCompat;
-import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,16 +11,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.example.petshop.Adapter.NavigationAdapter;
-import com.example.petshop.Adapter.SearchAdapter;
-import com.example.petshop.Class.Product;
-import com.example.petshop.Fragment.HomeFragment;
 import com.example.petshop.R;
-import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -34,7 +22,6 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import javax.annotation.Nullable;
 
@@ -43,6 +30,7 @@ public class HomeActivity extends AppCompatActivity {
     private AutoCompleteTextView autoCompleteTextView;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private ArrayList<String> listProductName = new ArrayList<>();
+    private ArrayList<String> listProductPrice = new ArrayList<> ();
     private ArrayAdapter<String> adapter;
     ImageView shoppingCart;
 
