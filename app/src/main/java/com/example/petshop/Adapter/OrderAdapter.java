@@ -19,8 +19,13 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> {
+<<<<<<< HEAD
     private Context context;
     private ArrayList<Product> products;
+=======
+    private final Context context;
+    private final ArrayList<Product> products;
+>>>>>>> 0dd5783ff319b8fc72fad4bdac1a4df11ddb3dfe
     private CartItemsAdapter.ItemClickListener itemClickListener;
 
     public OrderAdapter(Context context, ArrayList<Product> products, CartItemsAdapter.ItemClickListener itemClickListener) {
