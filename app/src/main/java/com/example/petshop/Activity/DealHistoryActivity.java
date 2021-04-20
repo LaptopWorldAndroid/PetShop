@@ -38,7 +38,6 @@ public class DealHistoryActivity extends AppCompatActivity  {
                 DealHistoryActivity.this,
                 arrayDealHistory
         );
-
         rcvDealHistory.setAdapter(adapter);
     }
 
