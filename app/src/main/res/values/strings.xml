@@ -2,8 +2,7 @@
     <string name="app_name">PetShop</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-<<<<<<< HEAD
-=======
+
     <string name="panel">Lịch sử giao dịch</string>
->>>>>>> 0dd5783ff319b8fc72fad4bdac1a4df11ddb3dfe
+
 </resources>

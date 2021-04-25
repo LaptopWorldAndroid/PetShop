@@ -27,10 +27,9 @@ import java.util.ArrayList;
 public class ShoppingCartActivity extends AppCompatActivity implements CartItemsAdapter.ItemClickListener  {
 
     private ArrayList<Product> products;
-<<<<<<< HEAD
+
     private RecyclerView rcvCartItems;
-=======
->>>>>>> 0dd5783ff319b8fc72fad4bdac1a4df11ddb3dfe
+
     private CartItemsAdapter cartItemsAdapter;
     private EditText cartItemCounter;
     private TextView totalMoney;
@@ -45,11 +44,8 @@ public class ShoppingCartActivity extends AppCompatActivity implements CartItems
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_cart);
 
-<<<<<<< HEAD
         rcvCartItems = findViewById(R.id.rcvCartItems);
-=======
-        RecyclerView rcvCartItems = findViewById(R.id.rcvCartItems);
->>>>>>> 0dd5783ff319b8fc72fad4bdac1a4df11ddb3dfe
+
 
         products = new ArrayList<>();
 

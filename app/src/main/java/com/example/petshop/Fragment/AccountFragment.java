@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.manager.SupportRequestManagerFragment;
+import com.example.petshop.Activity.DealHistoryActivity;
 import com.example.petshop.Activity.LoginActivity;
 import com.example.petshop.Activity.ProfileEditActivity;
 import com.example.petshop.Class.Customer;
@@ -34,7 +35,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class AccountFragment extends Fragment {
 
     private View viewRoot;
-    LinearLayout layoutUpdate, layoutLogout;
+    LinearLayout layoutUpdate, layoutLogout, layoutHistory;
     TextView txtName, txtEmail;
     SharedPreferences sharedPreferences;
     String nameUser;
@@ -75,6 +76,14 @@ public class AccountFragment extends Fragment {
         });
         txtEmail.setText("abc@gmail.com");
 
+        layoutHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), DealHistoryActivity.class);
+                startActivity(intent);
+            }
+        });
+
         layoutUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,6 +107,7 @@ public class AccountFragment extends Fragment {
         txtName = viewRoot.findViewById(R.id.txtName);
         txtEmail = viewRoot.findViewById(R.id.txtEmail);
         layoutUpdate = viewRoot.findViewById(R.id.layoutUpdate);
+        layoutHistory = viewRoot.findViewById(R.id.layoutHistory);
         layoutLogout = viewRoot.findViewById(R.id.layoutLogout);
 
     }
